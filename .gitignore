@@ -1,0 +1,11 @@
+.DS_Store
+.last-package-update-day
+auto-save-list
+backups
+config.el
+custom.el
+elpa
+ido.last
+projectile-bookmarks.eld
+recentf
+smex-items
