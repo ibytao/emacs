@@ -22,55 +22,82 @@
   (use-package solarized-theme
     :ensure t
     :init
-    ;; (load-theme 'solarized-dark t)
-    ;; (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-    ;; (set-face-attribute 'default nil :font "-*-Inconsolata Awesome-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-    ;; (set-face-attribute 'default nil :font "-apple-Menlo-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-    ;; (set-face-attribute 'default nil :font "-apple-inconsolata-medium-r-normal--14-*-*-*-*-*-iso10646-1")
-    ;; (set-face-attribute 'default nil :font "-*-Hack-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-    ;; (set-face-attribute 'default nil :font "-outline-Consolas-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-    ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-italic-normal-*-16-*-*-*-m-0-iso10646-1")
-    ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
-    ;; Setting English Font
-    ;; (set-face-attribute 'default nil :font "Operator Mono Book 14")
-    (set-face-attribute
-       'default nil
-       :font (font-spec :name "-*-Monaco-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
-                        :weight 'normal
-                        :slant 'normal
-                        :size 13))
+    ;; make the fringe stand out from the background
+    (setq solarized-distinct-fringe-background t)
+
+    ;; Don't change the font for some headings and titles
+    (setq solarized-use-variable-pitch nil)
+
+    ;; make the modeline high contrast
+    (setq solarized-high-contrast-mode-line t)
+
+    ;; Use less bolding
+    ;; (setq solarized-use-less-bold t)
+
+    ;; Use more italics
+    ;; (setq solarized-use-more-italic t)
+
+    ;; Use less colors for indicators such as git:gutter, flycheck and similar
+    (setq solarized-emphasize-indicators nil)
+
+    ;; Don't change size of org-mode headlines (but keep other size-changes)
+    (setq solarized-scale-org-headlines nil)
+
+    (setq x-underline-at-descent-line t)
+
+    (mapc
+     (lambda (face)
+       (set-face-attribute face nil :weight 'normal :underline nil))
+     (face-list))
+    (load-theme 'solarized-dark t)
     )
+  ;; (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-*-Inconsolata Awesome-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-apple-Menlo-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-apple-inconsolata-medium-r-normal--14-*-*-*-*-*-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-*-Hack-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-outline-Consolas-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-italic-normal-*-16-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+  ;; Setting English Font
+  ;; (set-face-attribute 'default nil :font "Operator Mono Book 14")
+  (set-face-attribute
+   'default nil
+   :font (font-spec :name "-*-Monaco-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
+                    :weight 'normal
+                    :slant 'normal
+                    :size 13))
 #+END_SRC
 * spaceline-all-the-icons
  #+BEGIN_SRC emacs-lisp
    (use-package spaceline-all-the-icons
-       :ensure t
-       ;; :after spaceline
-       :config
-       (spaceline-all-the-icons-theme)
-       ;; (spaceline-toggle-all-the-icons-minor-modes-on)
-       ;; (spaceline-toggle-all-the-icons-mode-icon-on)
-       (setq spaceline-all-the-icons-flycheck-alternate t)
-       ;;(setq spaceline-all-the-icons-icon-set-modified 'toggle)
-       ;; 'slant, 'arrow, 'cup, 'wave, 'none
-       (setq spaceline-all-the-icons-separator-type 'cup)
-       (setq spaceline-all-the-icons-slim-render t)
+     :ensure t
+     ;; :after spaceline
+     :config
+     (spaceline-all-the-icons-theme)
+     ;; (spaceline-toggle-all-the-icons-minor-modes-on)
+     ;; (spaceline-toggle-all-the-icons-mode-icon-on)
+     (setq spaceline-all-the-icons-flycheck-alternate t)
+     ;;(setq spaceline-all-the-icons-icon-set-modified 'toggle)
+     ;; 'slant, 'arrow, 'cup, 'wave, 'none
+     (setq spaceline-all-the-icons-separator-type 'cup)
+     (setq spaceline-all-the-icons-slim-render t)
 
-       (spaceline-toggle-all-the-icons-fullscreen)
-       (spaceline-toggle-all-the-icons-buffer-position)
-       (spaceline-toggle-all-the-icons-hud-on)
-       (spaceline-toggle-global-on)
+     (spaceline-toggle-all-the-icons-fullscreen)
+     (spaceline-toggle-all-the-icons-buffer-position)
+     (spaceline-toggle-all-the-icons-hud-on)
+     (spaceline-toggle-global-on)
 
-       ;; (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-       ;; (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
-       ;; (set-face-attribute 'spaceline-evil-insert nil :background "#5fd7ff")
-       ;; (set-face-attribute 'spaceline-evil-motion nil :background "#ae81ff")
-       ;; (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
-       ;; (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
-       ;; (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
+     ;; (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+     ;; (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
+     ;; (set-face-attribute 'spaceline-evil-insert nil :background "#5fd7ff")
+     ;; (set-face-attribute 'spaceline-evil-motion nil :background "#ae81ff")
+     ;; (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
+     ;; (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
+     ;; (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
 
-       ;; (custom-set-faces '(spaceline-highlight-face ((t (:background "#a6e22e" :foreground "#3E3D31" :inherit (quote mode-line))))))
-       )
+     (custom-set-faces '(spaceline-highlight-face ((t (:background "#a6e22e" :foreground "#3E3D31" :inherit (quote mode-line))))))
+     )
  #+END_SRC
 * expand-region
 #+BEGIN_SRC emacs-lisp
@@ -334,11 +361,12 @@
 #+END_SRC
 * clojure
 #+BEGIN_SRC emacs-lisp
-;;
-;;clojure
-;;
-(use-package clojure-mode
-  :ensure t)
+  ;;
+  ;;clojure
+  ;;
+  (use-package clojure-mode
+    :ensure t
+    :diminish Clj)
 #+END_SRC
 * clj-refactor
 #+BEGIN_SRC emacs-lisp

@@ -20,11 +20,11 @@
     (exec-path-from-shell-initialize))
   )
 
-;; (add-to-list 'default-frame-alist
-;;              '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist
+             '(ns-transparent-titlebar . t))
 
-;; (add-to-list 'default-frame-alist
-;;              '(ns-appearance . dark)) ;; or dark - depending on your theme
+(add-to-list 'default-frame-alist
+             '(ns-appearance . dark)) ;; or dark - depending on your theme
 
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -90,6 +90,42 @@
 ;;setup ido
 ;;
 (eval-after-load 'ido '(require 'setup-ido))
+
+;;undo
+(require 'undo-tree)
+(global-undo-tree-mode)
+
+;;set cursor style
+(setq-default cursor-type 'bar)
+(blink-cursor-mode t)
+
+;; fullscreen
+;;(setq initial-frame-alist (quote ((fullscreen . maximized))))
+(setq default-frame-alist
+      '((width . 100) ; character
+        (height . 200) ; lines
+        ))
+
+;;rename html tag
+(add-hook 'sgml-mode-hook
+          (lambda ()
+            (require 'rename-sgml-tag)
+            (define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)))
+
+;; auto swith branch (git)
+(global-auto-revert-mode 1)
+(setq auto-revert-check-vc-info t)
+
+;; Highlight current line
+(global-hl-line-mode 1)
+
+(defmacro rename-modeline (package-name mode new-name)
+  `(eval-after-load ,package-name
+     '(defadvice ,mode (after rename-modeline activate)
+        (setq mode-name ,new-name))))
+
+(rename-modeline "js2-mode" js2-mode "JS2")
+(rename-modeline "clojure-mode" clojure-mode "Clj")
 
 ;;
 ;; use use-package
