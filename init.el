@@ -20,12 +20,6 @@
     (exec-path-from-shell-initialize))
   )
 
-(add-to-list 'default-frame-alist
-             '(ns-transparent-titlebar . t))
-
-(add-to-list 'default-frame-alist
-             '(ns-appearance . dark)) ;; or dark - depending on your theme
-
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -100,11 +94,11 @@
 (blink-cursor-mode t)
 
 ;; fullscreen
-;;(setq initial-frame-alist (quote ((fullscreen . maximized))))
-(setq default-frame-alist
-      '((width . 100) ; character
-        (height . 200) ; lines
-        ))
+(setq initial-frame-alist (quote ((fullscreen . maximized))))
+;; (setq default-frame-alist
+;;       '((width . 100) ; character
+;;         (height . 100) ; lines
+;;         ))
 
 ;;rename html tag
 (add-hook 'sgml-mode-hook
@@ -119,6 +113,22 @@
 ;; Highlight current line
 (global-hl-line-mode 1)
 
+;; org-mode colors
+(setq org-todo-keyword-faces
+      '(
+        ("INPR" . (:foreground "yellow" :weight bold))
+        ("DONE" . (:foreground "green" :weight bold))
+        ("IMPEDED" . (:foreground "red" :weight bold))
+        ))
+
+;; Highlight matching parentheses when the point is on them.
+(show-paren-mode 1)
+
+(when window-system
+  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (tooltip-mode -1)
+  (blink-cursor-mode -1))
+
 (defmacro rename-modeline (package-name mode new-name)
   `(eval-after-load ,package-name
      '(defadvice ,mode (after rename-modeline activate)
@@ -126,6 +136,27 @@
 
 (rename-modeline "js2-mode" js2-mode "JS2")
 (rename-modeline "clojure-mode" clojure-mode "Clj")
+(rename-modeline "undo-tree-mode" clojure-mode "U")
+(rename-modeline "guide-key-mode" clojure-mode "G")
+
+;; Remove text in active region if inserting text
+(delete-selection-mode 1)
+
+;; Never insert tabs
+(set-default 'indent-tabs-mode nil)
+
+;; Allow pasting selection outside of Emacs
+(setq x-select-enable-clipboard t)
+
+;; Move files to trash when deleting
+(setq delete-by-moving-to-trash t)
+
+;; UTF-8 please
+(setq locale-coding-system 'utf-8) ; pretty
+(set-terminal-coding-system 'utf-8) ; pretty
+(set-keyboard-coding-system 'utf-8) ; pretty
+(set-selection-coding-system 'utf-8) ; please
+(prefer-coding-system 'utf-8) ; with sugar on top
 
 ;;
 ;; use use-package

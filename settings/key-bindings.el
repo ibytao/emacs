@@ -47,15 +47,25 @@
  ("C-c _"  . wrap-with-underscores)
  ("C-c `"  . wrap-with-back-quotes))
 
+
 (bind-keys
  :map prog-mode-map
- :filter (org-mode)
+ ;; :filter (org-at-item-p)
  ;; Clever newlines
  ("C-o" . open-line-and-indent)
  ("<C-return>" . open-line-below)
  ("<C-S-return>" . open-line-above)
  ("<M-return>" . new-line-dwim)
  )
+
+(defun my-org-hook ()
+  (define-key org-mode-map "C-o" nil)
+  (define-key org-mode-map "<C-return>" nil)
+  (define-key org-mode-map "<C-S-return>" nil)
+  (define-key org-mode-map "<M-return>" nil)
+  )
+(add-hook 'org-mode-hook 'my-org-hook)
+
 ;;key-map
 (global-set-key (kbd "C-c b") 'create-scratch-buffer)
 (global-set-key (kbd "s-/") 'comment-line)

@@ -2,55 +2,11 @@
 #+AUTHOR: Buck
 #+LATEX_HEADER: \usepackage{xeCJK}
 #+LATEX_HEADER: \setCJKmainfont{STHeitiSC-Light}
-* smex
-#+BEGIN_SRC emacs-lisp
-  ;;
-  ;;smex
-  ;;
-  (use-package smex
-    :ensure t
-    :init
-    (smex-initialize)
-    :bind (("M-x" . 'smex))
-    )
-#+END_SRC
-* solarized-theme
+* theme
 #+BEGIN_SRC emacs-lisp
   ;;
   ;;theme setup
   ;;
-  (use-package solarized-theme
-    :ensure t
-    :init
-    ;; make the fringe stand out from the background
-    (setq solarized-distinct-fringe-background t)
-
-    ;; Don't change the font for some headings and titles
-    (setq solarized-use-variable-pitch nil)
-
-    ;; make the modeline high contrast
-    (setq solarized-high-contrast-mode-line t)
-
-    ;; Use less bolding
-    ;; (setq solarized-use-less-bold t)
-
-    ;; Use more italics
-    ;; (setq solarized-use-more-italic t)
-
-    ;; Use less colors for indicators such as git:gutter, flycheck and similar
-    (setq solarized-emphasize-indicators nil)
-
-    ;; Don't change size of org-mode headlines (but keep other size-changes)
-    (setq solarized-scale-org-headlines nil)
-
-    (setq x-underline-at-descent-line t)
-
-    (mapc
-     (lambda (face)
-       (set-face-attribute face nil :weight 'normal :underline nil))
-     (face-list))
-    (load-theme 'solarized-dark t)
-    )
   ;; (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-*-Inconsolata Awesome-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-apple-Menlo-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
@@ -67,27 +23,87 @@
                     :weight 'normal
                     :slant 'normal
                     :size 13))
+
+  (use-package solarized-theme
+    :ensure t
+    :init
+    ;; make the fringe stand out from the background
+    ;; (setq solarized-distinct-fringe-background t)
+
+    ;; ;; Don't change the font for some headings and titles
+    ;; (setq solarized-use-variable-pitch nil)
+
+    ;; ;; make the modeline high contrast
+    ;; (setq solarized-high-contrast-mode-line t)
+
+    ;; ;; Use less bolding
+    ;; ;; (setq solarized-use-less-bold t)
+
+    ;; ;; Use more italics
+    ;; ;; (setq solarized-use-more-italic t)
+
+    ;; ;; Use less colors for indicators such as git:gutter, flycheck and similar
+    ;; (setq solarized-emphasize-indicators nil)
+
+    ;; ;; Don't change size of org-mode headlines (but keep other size-changes)
+    ;; (setq solarized-scale-org-headlines nil)
+    ;; (setq solarized-scale-outline-headlines nil)
+
+    ;; (setq x-underline-at-descent-line t)
+
+    ;; (mapc
+    ;;  (lambda (face)
+    ;;    (set-face-attribute face nil :weight 'normal :underline nil))
+    ;;  (face-list))
+
+    ;; (load-theme 'solarized-light t)
+    )
+
+  (use-package atom-one-dark-theme
+    :ensure t
+    :config
+    (load-theme 'atom-one-dark t)
+  )
+
+  (add-to-list 'default-frame-alist
+               '(ns-transparent-titlebar . t))
+  ;; or dark - depending on your theme
+  (add-to-list 'default-frame-alist
+               '(ns-appearance . dark))
+  ;; (setq ns-use-proxy-icon nil)
+  ;; (setq frame-title-format nil)
+#+END_SRC
+* spaceline
+#+BEGIN_SRC emacs-lisp
+  (use-package spaceline
+    :ensure t
+    :config
+    (spaceline-spacemacs-theme)
+  )
 #+END_SRC
 * spaceline-all-the-icons
  #+BEGIN_SRC emacs-lisp
    (use-package spaceline-all-the-icons
      :ensure t
-     ;; :after spaceline
+     :after spaceline
      :config
      (spaceline-all-the-icons-theme)
-     ;; (spaceline-toggle-all-the-icons-minor-modes-on)
+     (spaceline-toggle-all-the-icons-minor-modes-on)
      ;; (spaceline-toggle-all-the-icons-mode-icon-on)
+     (spaceline-toggle-all-the-icons-multiple-cursors)
+     (spaceline-toggle-all-the-icons-bookmark)
+     
      (setq spaceline-all-the-icons-flycheck-alternate t)
      ;;(setq spaceline-all-the-icons-icon-set-modified 'toggle)
      ;; 'slant, 'arrow, 'cup, 'wave, 'none
      (setq spaceline-all-the-icons-separator-type 'cup)
      (setq spaceline-all-the-icons-slim-render t)
-
+     
      (spaceline-toggle-all-the-icons-fullscreen)
      (spaceline-toggle-all-the-icons-buffer-position)
      (spaceline-toggle-all-the-icons-hud-on)
      (spaceline-toggle-global-on)
-
+     
      ;; (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
      ;; (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
      ;; (set-face-attribute 'spaceline-evil-insert nil :background "#5fd7ff")
@@ -99,6 +115,18 @@
      (custom-set-faces '(spaceline-highlight-face ((t (:background "#a6e22e" :foreground "#3E3D31" :inherit (quote mode-line))))))
      )
  #+END_SRC
+* smex
+#+BEGIN_SRC emacs-lisp
+  ;;
+  ;;smex
+  ;;
+  (use-package smex
+    :ensure t
+    :init
+    (smex-initialize)
+    :bind (("M-x" . 'smex))
+    )
+#+END_SRC
 * expand-region
 #+BEGIN_SRC emacs-lisp
   ;;
@@ -108,7 +136,22 @@
     :ensure t
     :bind
     (("C-'" . 'er/expand-region))
+    :config
+    (pending-delete-mode t)
     )
+#+END_SRC
+* multiple-cursors
+#+BEGIN_SRC emacs-lisp
+  ;;
+  ;; multiple cursors
+  ;;
+  (use-package multiple-cursors
+    :ensure t
+    :bind (
+           ("M-3" . mc/mark-next-like-this)
+           ("M-4" . mc/mark-previous-like-this)
+           ("C-;" . mc/mark-all-dwim)
+           ))
 #+END_SRC
 * ivy
 #+BEGIN_SRC emacs-lisp
@@ -202,37 +245,38 @@
 #+END_SRC
 * flycheck
 #+BEGIN_SRC emacs-lisp
-;;
-;;flycheck
-;;
-(use-package flycheck
-  :ensure t
-  :config
-   ;;set eslint
-    (defun my/use-eslint-from-node-modules ()
-      (let* ((root (locate-dominating-file
-                    (or (buffer-file-name) default-directory)
-                    "node_modules"))
-             (eslint (and root
-                          (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                            root))))
-        (when (and eslint (file-executable-p eslint))
-          (setq-local flycheck-javascript-eslint-executable eslint))))
-    (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-    (add-hook 'web-mode-hook #'my/use-eslint-from-node-modules)
-)
+  ;;
+  ;;flycheck
+  ;;
+  (use-package flycheck
+    :ensure t
+    :config
+     ;;set eslint
+      (defun my/use-eslint-from-node-modules ()
+        (let* ((root (locate-dominating-file
+                      (or (buffer-file-name) default-directory)
+                      "node_modules"))
+               (eslint (and root
+                            (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                              root))))
+          (when (and eslint (file-executable-p eslint))
+            (setq-local flycheck-javascript-eslint-executable eslint))))
+      (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+      (add-hook 'web-mode-hook #'my/use-eslint-from-node-modules)
+  )
 #+END_SRC
 * smartparens
 #+BEGIN_SRC emacs-lisp
-;;
-;;smartparens-config
-;;
-(use-package smartparens
-  :ensure t
-  :config
-  (smartparens-global-mode t)
-  ;;(add-hook 'js2-mode-hook #'smartparens-mode)
-  )
+  ;;
+  ;;smartparens-config
+  ;;
+  (use-package smartparens
+    :ensure t
+    :config
+    (smartparens-global-mode t)
+    (add-hook 'org-mode-hook (lambda () (smartparens-mode -1) (message "smartparens------------")))
+    ;; (eval-after-load 'org (lambda () (smartparens-mode -1) (message "smartparens------------")))
+    )
 #+END_SRC
 * magit
 #+BEGIN_SRC emacs-lisp
@@ -272,27 +316,27 @@
 #+END_SRC
 * company
 #+BEGIN_SRC emacs-lisp
-;;
-;;company
-;;
-(use-package company
-  :ensure t
-  :config
-  (global-company-mode t)
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 2)
-  (with-eval-after-load 'company
-    (define-key company-active-map (kbd "C-n") #'company-select-next)
-    (define-key company-active-map (kbd "C-p") #'company-select-previous))
+  ;;
+  ;;company
+  ;;
+  (use-package company
+    :ensure t
+    :config
+    (global-company-mode t)
+    (setq company-idle-delay 0)
+    (setq company-minimum-prefix-length 2)
+    (with-eval-after-load 'company
+      (define-key company-active-map (kbd "C-n") #'company-select-next)
+      (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
-  ;; (add-hook 'css-mode-hook (lambda ()
-  ;;                            (add-to-list (make-local-variable 'company-backends) 'company-css)))
+    ;; (add-hook 'css-mode-hook (lambda ()
+    ;;                            (add-to-list (make-local-variable 'company-backends) 'company-css)))
 
-  (add-hook 'emacs-lisp-mode-hook(lambda ()
-                                   (add-to-list (make-local-variable 'company-backends) 'company-elisp)))
+    (add-hook 'emacs-lisp-mode-hook (lambda ()
+                                      (add-to-list (make-local-variable 'company-backends) 'company-elisp)))
 
   
-  )
+    )
 #+END_SRC
 * org
 #+BEGIN_SRC emacs-lisp
@@ -366,7 +410,7 @@
   ;;
   (use-package clojure-mode
     :ensure t
-    :diminish Clj)
+    )
 #+END_SRC
 * clj-refactor
 #+BEGIN_SRC emacs-lisp
@@ -427,13 +471,17 @@
 #+END_SRC
 * js2-mode
 #+BEGIN_SRC emacs-lisp
-;;
-;;js2-mode
-;;
-(use-package js2-mode
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
+  ;;
+  ;;js2-mode
+  ;;
+  (use-package js2-mode
+    :ensure t
+    :config
+    ;; Let flycheck handle parse errors
+    (setq-default js2-show-parse-errors nil)
+    (setq-default js2-strict-missing-semi-warning nil)
+    (setq-default js2-strict-trailing-comma-warning t) ;; jshint does not warn about this now for some reason
+    (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
 #+END_SRC
 * tern
 #+BEGIN_SRC emacs-lisp
@@ -523,17 +571,21 @@
 
 * Company-irony-c-headers
   #+BEGIN_SRC emacs-lisp
-    (use-package company-irony-c-headers
+    (use-package company-irony
       :ensure t
       :config
-      (defun my-c-c++-mode-hook()
-        (company-mode)
-        (eval-after-load 'company
-          '(add-to-list 'company-backends '(company-c-headers company-irony-c-headers company-irony company-etags)))
-        )
-      (add-hook 'c-mode-hook 'my-c-c++-mode-hook)
-      (add-hook 'c++-mode-hook 'my-c-c++-mode-hook)
-      (add-hook 'objc-mode-hook 'my-c-c++-mode-hook))
+      (use-package company-irony-c-headers
+        :ensure t
+        :config
+        (defun my-c-c++-mode-hook()
+          (company-mode)
+          (eval-after-load 'company
+            '(add-to-list 'company-backends '(company-c-headers company-irony-c-headers company-irony company-etags)))
+          )
+        (add-hook 'c-mode-hook 'my-c-c++-mode-hook)
+        (add-hook 'c++-mode-hook 'my-c-c++-mode-hook)
+        (add-hook 'objc-mode-hook 'my-c-c++-mode-hook))
+      )
   #+END_SRC
 * Java
   #+BEGIN_SRC emacs-lisp
