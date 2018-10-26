@@ -184,7 +184,7 @@
   :ensure t
   :config
   (recentf-mode 1)
-  (setq recentf-max-menu-items 50)
+  (setq recentf-max-menu-items 100)
   (defun recentf-ido-find-file ()
     "Use `ido-completing-read' to find a recent file."
     (interactive)
@@ -274,8 +274,25 @@
     :ensure t
     :config
     (smartparens-global-mode t)
-    (add-hook 'org-mode-hook (lambda () (smartparens-mode -1) (message "smartparens------------")))
-    ;; (eval-after-load 'org (lambda () (smartparens-mode -1) (message "smartparens------------")))
+    (add-hook 'org-mode-hook (lambda () (smartparens-mode -1)))
+    (add-hook 'clojure-mode-hook (lambda () (smartparens-mode -1)))
+    (add-hook 'emacs-lisp-mode (lambda () (smartparens-mode -1)))
+    )
+#+END_SRC
+* paredit
+#+BEGIN_SRC emacs-lisp
+  (use-package paredit
+    :ensure t
+    :config
+    (add-hook 'clojure-mode-hook (lambda () (paredit-mode 1)))
+    (add-hook 'cider-repl-mode-hook (lambda () (paredit-mode 1)))
+    (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode 1)))
+    ;; Enable `paredit-mode' in the minibuffer, during `eval-expression'.
+    (defun conditionally-enable-paredit-mode ()
+      (if (eq this-command 'eval-expression)
+          (paredit-mode 1)))
+
+    (add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
     )
 #+END_SRC
 * magit

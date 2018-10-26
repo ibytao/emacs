@@ -48,21 +48,27 @@
  ("C-c `"  . wrap-with-back-quotes))
 
 
-(bind-keys
- :map prog-mode-map
- ;; :filter (org-at-item-p)
- ;; Clever newlines
- ("C-o" . open-line-and-indent)
- ("<C-return>" . open-line-below)
- ("<C-S-return>" . open-line-above)
- ("<M-return>" . new-line-dwim)
- )
+;; (bind-keys
+;;  :map prog-mode-map
+;;  ;; :filter (org-at-item-p)
+;;  ;; Clever newlines
+;;  ("C-o" . open-line-and-indent)
+;;  ("<C-return>" . open-line-below)
+;;  ("<C-S-return>" . open-line-above)
+;;  ("<M-return>" . new-line-dwim)
+;;  )
+
+;; Clever newlines
+(global-set-key (kbd "C-o") 'open-line-and-indent)
+(global-set-key (kbd "<C-return>") 'open-line-below)
+(global-set-key (kbd "<C-S-return>") 'open-line-above)
+(global-set-key (kbd "<M-return>") 'new-line-dwim)
 
 (defun my-org-hook ()
-  (define-key org-mode-map "C-o" nil)
-  (define-key org-mode-map "<C-return>" nil)
-  (define-key org-mode-map "<C-S-return>" nil)
-  (define-key org-mode-map "<M-return>" nil)
+  (define-key org-mode-map (kbd "C-o") 'org-open-line)
+  (define-key org-mode-map (kbd "<C-return>") 'org-insert-heading-respect-content)
+  (define-key org-mode-map (kbd "<C-S-return>") 'org-insert-todo-heading-respect-content)
+  (define-key org-mode-map (kbd "<M-return>") 'org-meta-return)
   )
 (add-hook 'org-mode-hook 'my-org-hook)
 

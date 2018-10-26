@@ -6,6 +6,24 @@
 (package-initialize)
 
 ;;
+;; use use-package
+;;
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+
+(use-package diminish :ensure t)
+(use-package bind-key :ensure t)
+
+(use-package auto-package-update
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
+
+;;
 ;;basic setup
 ;;
 
@@ -158,26 +176,6 @@
 (set-selection-coding-system 'utf-8) ; please
 (prefer-coding-system 'utf-8) ; with sugar on top
 
-;;
-;; use use-package
-;;
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-
-(use-package diminish :ensure t)
-(use-package bind-key :ensure t)
-
-(use-package auto-package-update
-  :ensure t
-  :config
-  (setq auto-package-update-delete-old-versions t)
-  (setq auto-package-update-hide-results t)
-  (auto-package-update-maybe))
 
 ;; Load the config
 (org-babel-load-file (concat user-emacs-directory "config.org"))
-
-
-
