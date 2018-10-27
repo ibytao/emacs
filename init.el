@@ -107,10 +107,6 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
-;;set cursor style
-(setq-default cursor-type 'bar)
-(blink-cursor-mode t)
-
 ;; fullscreen
 (setq initial-frame-alist (quote ((fullscreen . maximized))))
 ;; (setq default-frame-alist
@@ -130,14 +126,6 @@
 
 ;; Highlight current line
 (global-hl-line-mode 1)
-
-;; org-mode colors
-(setq org-todo-keyword-faces
-      '(
-        ("INPR" . (:foreground "yellow" :weight bold))
-        ("DONE" . (:foreground "green" :weight bold))
-        ("IMPEDED" . (:foreground "red" :weight bold))
-        ))
 
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)
@@ -176,6 +164,9 @@
 (set-selection-coding-system 'utf-8) ; please
 (prefer-coding-system 'utf-8) ; with sugar on top
 
-
 ;; Load the config
 (org-babel-load-file (concat user-emacs-directory "config.org"))
+
+;;set cursor style
+(setq-default cursor-type 'bar)
+(blink-cursor-mode t)

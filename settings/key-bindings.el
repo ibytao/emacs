@@ -93,16 +93,29 @@
 (global-set-key (kbd "M-j") (λ (join-line -1)))
 
 ;; Find file in project
-(global-set-key (kbd "C-x o") 'find-file-in-project)
+(global-unset-key (kbd "s-o"))
+(global-set-key (kbd "s-o") 'projectile-find-file)
 
 (global-set-key (kbd "C-c y") 'bury-buffer)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; Move windows, even in org-mode
-(global-set-key (kbd "<s-right>") 'windmove-right)
-(global-set-key (kbd "<s-left>") 'windmove-left)
-(global-set-key (kbd "<s-up>") 'windmove-up)
-(global-set-key (kbd "<s-down>") 'windmove-down)
+;; (global-set-key (kbd "<s-right>") 'windmove-right)
+;; (global-set-key (kbd "<s-left>") 'windmove-left)
+;; (global-set-key (kbd "<s-up>") 'windmove-up)
+;; (global-set-key (kbd "<s-down>") 'windmove-down)
+
+(global-unset-key (kbd "s-n"))
+(global-set-key (kbd "s-n") 'next-buffer)
+(global-set-key (kbd "s-b") 'previous-buffer)
+
+(defun prev-window ()
+  (interactive)
+  (other-window -1))
+(global-set-key (kbd "s-[") 'prev-window)
+(global-set-key (kbd "s-]") 'other-window)
+
+(define-key key-translation-map (kbd "ESC") (kbd "C-g"))
 
 (provide 'key-bindings)
