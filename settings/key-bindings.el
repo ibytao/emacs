@@ -118,4 +118,13 @@
 
 (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
 
+;; Killing text
+(global-set-key (kbd "C-S-k") 'kill-and-retry-line)
+(global-set-key (kbd "C-w") 'kill-region-or-backward-word)
+(global-set-key (kbd "C-S-w") 'kill-to-beginning-of-line)
+
+;; Line movement
+(global-set-key (kbd "<C-S-down>") 'move-text-down)
+(global-set-key (kbd "<C-S-up>") 'move-text-up)
+
 (provide 'key-bindings)
