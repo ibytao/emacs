@@ -61,9 +61,16 @@
 
   (use-package atom-one-dark-theme
     :ensure t
-    :config
-    (load-theme 'atom-one-dark t)
-  )
+    )
+
+  ;; (use-package zenburn-theme
+  ;;   :ensure t)
+
+  ;; (use-package doom-themes
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'doom-solarized-light)
+  ;;   )
 
   (add-to-list 'default-frame-alist
                '(ns-transparent-titlebar . t))
@@ -174,15 +181,29 @@
     (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
     )
 #+END_SRC
+* avy
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package avy
+  ;;   :ensure t)
+#+END_SRC
 * ace-jump-mode
 #+BEGIN_SRC emacs-lisp
   (use-package ace-jump-mode
     :ensure t
     :init
     ;; you can select the key you prefer to
-    (global-unset-key (kbd "s-j"))
-    (global-set-key (kbd "s-j") 'ace-jump-mode)
+    ;; (global-unset-key (kbd "s-j"))
+    ;; (global-set-key (kbd "s-j") 'ace-jump-mode)
     ;; (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)  
+    )
+#+END_SRC
+* ace-isearch
+#+BEGIN_SRC emacs-lisp
+  (use-package ace-isearch
+    :ensure t
+    :config
+    (setq ace-isearch-jump-delay 0.5)
+    (global-ace-isearch-mode +1)
     )
 #+END_SRC
 * ivy
@@ -199,10 +220,31 @@
   (use-package swiper
     :ensure t
     :config
-    (global-unset-key (kbd "s-f"))
-    (global-set-key (kbd "s-f") 'swiper)
+    ;; (global-unset-key (kbd "s-p"))
+    ;; (global-set-key (kbd "s-p") 'swiper)
     )
 #+END_SRC
+* recentf
+ #+BEGIN_SRC emacs-lisp
+    ;;
+   ;;recentf
+   ;;
+   (use-package recentf
+     :ensure t
+     :config
+     (recentf-mode 1)
+     (setq recentf-max-menu-items 350)
+     (defun recentf-ido-find-file ()
+       "Use `ido-completing-read' to find a recent file."
+       (interactive)
+       (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+           (message "Opening file...")
+         (message "Aborting")))
+     (global-unset-key (kbd "s-f"))
+     (global-set-key (kbd "s-f") 'recentf-ido-find-file)
+     ;; (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
+     )
+ #+END_SRC
 * yasnippet
 #+BEGIN_SRC emacs-lisp
 ;;
@@ -215,27 +257,6 @@
   (use-package yasnippet-snippets :ensure t)
   )
 #+END_SRC
-* recentf
- #+BEGIN_SRC emacs-lisp
-    ;;
-   ;;recentf
-   ;;
-   (use-package recentf
-     :ensure t
-     :config
-     (recentf-mode 1)
-     (setq recentf-max-menu-items 150)
-     (defun recentf-ido-find-file ()
-       "Use `ido-completing-read' to find a recent file."
-       (interactive)
-       (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-           (message "Opening file...")
-         (message "Aborting")))
-     (global-unset-key (kbd "s-p"))
-     (global-set-key (kbd "s-p") 'recentf-ido-find-file)
-     ;; (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
-     )
- #+END_SRC
 * osx-dictionary
 #+BEGIN_SRC emacs-lisp
 ;;
@@ -362,7 +383,7 @@
 (use-package magit
   :ensure t
   :config
-  (global-set-key (kbd "C-c m") 'magit)
+  (global-set-key (kbd "C-x m") 'magit)
   )
 #+END_SRC
 * guide-key
@@ -738,3 +759,32 @@
       (eval-after-load "php-mode" '(define-key php-mode-map (kbd "C-.") nil))
     )
   #+end_src
+* sbcl
+  #+begin_src emacs-lisp
+    (use-package slime
+      :ensure t
+      :init
+      (setq inferior-lisp-program "/usr/local/homebrew/bin/sbcl")
+      :config
+      (slime-setup))
+  #+end_src
+* email
+#+BEGIN_SRC emacs-lisp
+  ;; (setq user-full-name "taoby")
+  ;; (setq user-mail-address "taoby@chinacreditforce.com")
+
+  ;; (setq send-mail-function 'smtpmail-send-it)
+
+  ;; (setq smtpmail-smtp-server "smtp.exmail.qq.com")
+  ;; (setq smtpmail-smtp-user "taoby@chinacreditforce.com")
+  ;; (setq smtpmail-smtp-service 465)
+  ;; (setq smtpmail-stream-type 'starttls)
+
+  ;; (setq smtpmail-debug-info t)
+  ;; (setq smtpmail-debug-verb t)
+#+END_SRC
+* restclient
+#+BEGIN_SRC emacs-lisp
+  (use-package restclient
+    :ensure t)
+#+END_SRC

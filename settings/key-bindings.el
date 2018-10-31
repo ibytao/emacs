@@ -128,8 +128,8 @@
 (global-set-key (kbd "<C-S-up>") 'move-text-up)
 
 ;; Like isearch, but adds region (if any) to history and deactivates mark
-(global-set-key (kbd "C-s") 'isearch-forward-use-region)
-(global-set-key (kbd "C-r") 'isearch-backward-use-region)
+;; (global-set-key (kbd "C-s") 'isearch-forward-use-region)
+;; (global-set-key (kbd "C-r") 'isearch-backward-use-region)
 
 ;; Display and edit occurances of regexp in buffer
 (global-set-key (kbd "C-c o") 'occur)

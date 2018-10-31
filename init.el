@@ -1,3 +1,6 @@
+;;
+;; package
+;;
 (require 'package)
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -71,6 +74,9 @@
 (dolist (file (directory-files defuns-dir t "\\w+"))
   (when (file-regular-p file)
     (load file)))
+
+;; custom themes
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
 ;;tabs
 (setq-default indent-tabs-mode nil)
@@ -163,6 +169,10 @@
 (set-keyboard-coding-system 'utf-8) ; pretty
 (set-selection-coding-system 'utf-8) ; please
 (prefer-coding-system 'utf-8) ; with sugar on top
+
+;; ediff setup
+(setq ediff-split-window-function 'split-window-horizontally
+      ediff-window-setup-function 'ediff-setup-windows-plain)
 
 ;; Load the config
 (org-babel-load-file (concat user-emacs-directory "config.org"))
