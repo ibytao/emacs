@@ -8,6 +8,8 @@
 
 (package-initialize)
 
+;; (setq debug-on-error t)
+
 ;;
 ;; use use-package
 ;;
@@ -19,12 +21,12 @@
 (use-package diminish :ensure t)
 (use-package bind-key :ensure t)
 
-(use-package auto-package-update
-  :ensure t
-  :config
-  (setq auto-package-update-delete-old-versions t)
-  (setq auto-package-update-hide-results t)
-  (auto-package-update-maybe))
+;; (use-package auto-package-update
+;;   :ensure t
+;;   :config
+;;   (setq auto-package-update-delete-old-versions t)
+;;   (setq auto-package-update-hide-results t)
+;;   (auto-package-update-maybe))
 
 ;;
 ;;basic setup

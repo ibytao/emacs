@@ -30,38 +30,38 @@
     ;; make the fringe stand out from the background
     ;; (setq solarized-distinct-fringe-background t)
 
-    ;; ;; Don't change the font for some headings and titles
-    ;; (setq solarized-use-variable-pitch nil)
+    ;; Don't change the font for some headings and titles
+    (setq solarized-use-variable-pitch nil)
 
-    ;; ;; make the modeline high contrast
-    ;; (setq solarized-high-contrast-mode-line t)
+    ;; make the modeline high contrast
+    (setq solarized-high-contrast-mode-line t)
 
-    ;; ;; Use less bolding
-    ;; ;; (setq solarized-use-less-bold t)
+    ;; Use less bolding
+    ;; (setq solarized-use-less-bold t)
 
-    ;; ;; Use more italics
-    ;; ;; (setq solarized-use-more-italic t)
+    ;; Use more italics
+    ;; (setq solarized-use-more-italic t)
 
-    ;; ;; Use less colors for indicators such as git:gutter, flycheck and similar
-    ;; (setq solarized-emphasize-indicators nil)
+    ;; Use less colors for indicators such as git:gutter, flycheck and similar
+    (setq solarized-emphasize-indicators nil)
 
-    ;; ;; Don't change size of org-mode headlines (but keep other size-changes)
-    ;; (setq solarized-scale-org-headlines nil)
-    ;; (setq solarized-scale-outline-headlines nil)
+    ;; Don't change size of org-mode headlines (but keep other size-changes)
+    (setq solarized-scale-org-headlines nil)
+    (setq solarized-scale-outline-headlines nil)
 
-    ;; (setq x-underline-at-descent-line t)
+    (setq x-underline-at-descent-line t)
 
-    ;; (mapc
-    ;;  (lambda (face)
-    ;;    (set-face-attribute face nil :weight 'normal :underline nil))
-    ;;  (face-list))
+    (mapc
+     (lambda (face)
+       (set-face-attribute face nil :weight 'normal :underline nil))
+     (face-list))
 
-    ;; (load-theme 'solarized-light t)
+    (load-theme 'solarized-dark t)
     )
 
-  (use-package atom-one-dark-theme
-    :ensure t
-    )
+  ;; (use-package atom-one-dark-theme
+  ;;   :ensure t
+  ;;   )
 
   ;; (use-package zenburn-theme
   ;;   :ensure t)
@@ -71,6 +71,9 @@
   ;;   :config
   ;;   (load-theme 'doom-solarized-light)
   ;;   )
+
+  ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
+  ;; (load-theme 'solarized-dark t) 
 
   (add-to-list 'default-frame-alist
                '(ns-transparent-titlebar . t))
@@ -525,30 +528,30 @@
 #+END_SRC
 * web-mode
 #+BEGIN_SRC emacs-lisp
-;;
-;;web-mode
-;;
-(use-package web-mode
-       :ensure t
-       :config
-       (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
-       (add-hook 'web-mode-hook
-                 (lambda ()
-                   ;; (yas-activate-extra-mode 'web-mode)
-                   ;; (web-mode-set-content-type "jsx")
-                   (flycheck-mode 1)
-                   ;; disable jshint since we prefer eslint checking
-                   ;; (setq-default flycheck-disabled-checkers
-                   ;;               (append flycheck-disabled-checkers
-                   ;;                       '(javascript-jshint)))
-                   ;; use eslint with web-mode for jsx files
-                   (flycheck-add-mode 'javascript-eslint 'web-mode)
-                   ;; (lsp-vue-enable)
-                   (setq web-mode-style-padding 0)
-                   (setq web-mode-script-padding 0)
-                   ;; (message "now set to: %s" web-mode-content-type)
-                   ))
-       )
+  ;;
+  ;;web-mode
+  ;;
+  (use-package web-mode
+         :ensure t
+         :config
+         (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
+         (add-hook 'web-mode-hook
+                   (lambda ()
+                     ;; (yas-activate-extra-mode 'web-mode)
+                     ;; (web-mode-set-content-type "jsx")
+                     (flycheck-mode 1)
+                     ;; disable jshint since we prefer eslint checking
+                     ;; (setq-default flycheck-disabled-checkers
+                     ;;               (append flycheck-disabled-checkers
+                     ;;                       '(javascript-jshint)))
+                     ;; use eslint with web-mode for jsx files
+                     (flycheck-add-mode 'javascript-eslint 'web-mode)
+                     ;; (lsp-vue-enable)
+                     (setq web-mode-style-padding 0)
+                     (setq web-mode-script-padding 0)
+                     ;; (message "now set to: %s" web-mode-content-type)
+                     ))
+         )
 #+END_SRC
 * emmet
 #+BEGIN_SRC emacs-lisp
