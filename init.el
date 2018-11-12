@@ -123,10 +123,10 @@
 ;;         ))
 
 ;;rename html tag
-(add-hook 'sgml-mode-hook
-          (lambda ()
-            (require 'rename-sgml-tag)
-            (define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)))
+;; (add-hook 'sgml-mode-hook
+;;           (lambda ()
+;;             (require 'rename-sgml-tag)
+;;             (define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)))
 
 ;; auto swith branch (git)
 (global-auto-revert-mode 1)
@@ -175,6 +175,13 @@
 ;; ediff setup
 (setq ediff-split-window-function 'split-window-horizontally
       ediff-window-setup-function 'ediff-setup-windows-plain)
+
+;;yes and no to y n
+(fset 'yes-or-no-p'y-or-n-p)
+
+;; Move to trash when deleting stuff
+(setq delete-by-moving-to-trash t
+      trash-directory "~/.Trash/emacs")
 
 ;; Load the config
 (org-babel-load-file (concat user-emacs-directory "config.org"))

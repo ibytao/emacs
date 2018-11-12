@@ -7,7 +7,7 @@
   ;;
   ;;theme setup
   ;;
-  ;; (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+  (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-*-Inconsolata Awesome-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-apple-Menlo-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-apple-inconsolata-medium-r-normal--14-*-*-*-*-*-iso10646-1")
@@ -17,51 +17,68 @@
   ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
   ;; Setting English Font
   ;; (set-face-attribute 'default nil :font "Operator Mono Book 14")
-  (set-face-attribute
-   'default nil
-   :font (font-spec :name "-*-Monaco-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
-                    :weight 'normal
-                    :slant 'normal
-                    :size 13))
 
-  (use-package solarized-theme
-    :ensure t
-    :init
-    ;; make the fringe stand out from the background
-    ;; (setq solarized-distinct-fringe-background t)
+  ;; (set-face-attribute
+  ;;  'default nil
+  ;;  :font (font-spec :name "-*-Monaco-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
+  ;;                   :weight 'normal
+  ;;                   :slant 'normal
+  ;;                   :size 13))
 
-    ;; Don't change the font for some headings and titles
-    (setq solarized-use-variable-pitch nil)
-
-    ;; make the modeline high contrast
-    (setq solarized-high-contrast-mode-line t)
-
-    ;; Use less bolding
-    ;; (setq solarized-use-less-bold t)
-
-    ;; Use more italics
-    ;; (setq solarized-use-more-italic t)
-
-    ;; Use less colors for indicators such as git:gutter, flycheck and similar
-    (setq solarized-emphasize-indicators nil)
-
-    ;; Don't change size of org-mode headlines (but keep other size-changes)
-    (setq solarized-scale-org-headlines nil)
-    (setq solarized-scale-outline-headlines nil)
-
-    (setq x-underline-at-descent-line t)
-
-    (mapc
-     (lambda (face)
-       (set-face-attribute face nil :weight 'normal :underline nil))
-     (face-list))
-
-    (load-theme 'solarized-dark t)
-    )
-
-  ;; (use-package atom-one-dark-theme
+  ;; (use-package solarized-theme
   ;;   :ensure t
+  ;;   :init
+  ;;   ;; make the fringe stand out from the background
+  ;;   ;; (setq solarized-distinct-fringe-background t)
+
+  ;;   ;; Don't change the font for some headings and titles
+  ;;   (setq solarized-use-variable-pitch nil)
+
+  ;;   ;; make the modeline high contrast
+  ;;   (setq solarized-high-contrast-mode-line t)
+
+  ;;   ;; Use less bolding
+  ;;   ;; (setq solarized-use-less-bold t)
+
+  ;;   ;; Use more italics
+  ;;   ;; (setq solarized-use-more-italic t)
+
+  ;;   ;; Use less colors for indicators such as git:gutter, flycheck and similar
+  ;;   (setq solarized-emphasize-indicators nil)
+
+  ;;   ;; Don't change size of org-mode headlines (but keep other size-changes)
+  ;;   (setq solarized-scale-org-headlines nil)
+  ;;   (setq solarized-scale-outline-headlines nil)
+
+  ;;   (setq x-underline-at-descent-line t)
+
+  ;;   (mapc
+  ;;    (lambda (face)
+  ;;      (set-face-attribute face nil :weight 'normal :underline nil))
+  ;;    (face-list))
+
+  ;;   (load-theme 'solarized-dark t)
+  ;;   (custom-set-faces
+  ;;    ;; '(company-preview
+  ;;    ;;   ((t (:foreground "#859900" :underline t))))
+  ;;    ;; '(company-preview-common
+  ;;    ;;   ((t (:inherit company-preview))))
+  ;;    ;; '(company-tooltip
+  ;;    ;;   ((t (:background "lightgray" :foreground "black"))))
+
+  ;;    '(company-tooltip-selection
+  ;;      ((t (:background "#1b3d4a" :foreground "#859900"))))
+  ;;    '(company-tooltip-common
+  ;;      ((((type x)) (:inherit company-tooltip :weight bold))
+  ;;       (t (:inherit company-tooltip))))
+  ;;    '(company-tooltip-common-selection
+  ;;      ((((type x)) (:inherit company-tooltip-selection :weight bold))
+  ;;       (t (:inherit company-tooltip-selection)))))
   ;;   )
+
+  (use-package atom-one-dark-theme
+    :ensure t
+    )
 
   ;; (use-package zenburn-theme
   ;;   :ensure t)
@@ -295,10 +312,9 @@
   ;;
   (use-package projectile
     :ensure t
-    :bind
-    (("\C-c p" . projectile-command-map))
     :config
     (projectile-mode t)
+    (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
     (setq projectile-completion-system 'ivy)
     (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" ))
     )
@@ -378,6 +394,23 @@
     ;; (add-hook 'minibuffer-setup-hook 'conditionally-enable-paredit-mode)
     )
 #+END_SRC
+* fill-column-indicator
+#+BEGIN_SRC emacs-lisp
+  (use-package fill-column-indicator
+    :ensure t
+    :config
+    (fci-mode t)
+    (setq fci-rule-color "#111122")
+    ;; Lines should be 80 characters wide, not 72
+    ;; (setq fill-column 80)
+
+    ;; 80 chars is a good width.
+    ;; (set-default 'fill-column 80)
+
+    ;; Don't break lines for me, please
+    (setq-default truncate-lines t)
+    )
+#+END_SRC
 * magit
 #+BEGIN_SRC emacs-lisp
 ;;
@@ -454,7 +487,7 @@
     :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode t)))
     (setq org-hide-leading-stars t)
-    (setq org-ellipsis "⤵")
+    ;; (setq org-ellipsis "⤵")
     (setq org-log-done 'time)
     )
 
@@ -507,24 +540,28 @@
   ;;
   (use-package clojure-mode
     :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+    (add-to-list 'auto-mode-alist '("\\.cljs$" . clojurescript-mode))
+    (add-to-list 'auto-mode-alist '("\\.cljc$" . clojurec-mode))
     )
 #+END_SRC
 * clj-refactor
 #+BEGIN_SRC emacs-lisp
-;;
-;;clj-refactor
-;;
-(use-package clj-refactor
-  :ensure t
-  :config
-  (defun my-clojure-mode-hook ()
-    (clj-refactor-mode 1)
-    (yas-minor-mode 1) ; for adding require/use/import statements
-    ;; This choice of keybinding leaves cider-macroexpand-1 unbound
-    (cljr-add-keybindings-with-prefix "C-c C-m"))
+  ;;
+  ;;clj-refactor
+  ;;
+  (use-package clj-refactor
+    :ensure t
+    :config
+    (defun my-clojure-mode-hook ()
+      (clj-refactor-mode 1)
+      (yas-minor-mode 1) ; for adding require/use/import statements
+      ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+      (cljr-add-keybindings-with-prefix "C-c C-m"))
 
-  (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
-  )
+    (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+    )
 #+END_SRC
 * web-mode
 #+BEGIN_SRC emacs-lisp
@@ -574,6 +611,24 @@
   (use-package js2-mode
     :ensure t
     :config
+    (setq-default js2-allow-rhino-new-expr-initializer nil)
+    (setq-default js2-auto-indent-p nil)
+    (setq-default js2-enter-indents-newline nil)
+    (setq-default js2-global-externs '("module" "require" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON"))
+    (setq-default js2-idle-timer-delay 0.1)
+    (setq-default js2-indent-on-enter-key nil)
+    (setq-default js2-mirror-mode nil)
+    (setq-default js2-strict-inconsistent-return-warning nil)
+    (setq-default js2-auto-indent-p t)
+    (setq-default js2-include-rhino-externs nil)
+    (setq-default js2-include-gears-externs nil)
+    (setq-default js2-concat-multiline-strings 'eol)
+    (setq-default js2-rebind-eol-bol-keys nil)
+
+    ;; Let flycheck handle parse errors
+    (setq-default js2-show-parse-errors nil)
+    (setq-default js2-strict-missing-semi-warning nil)
+    (setq-default js2-strict-trailing-comma-warning t) ;; jshint does not warn about this now for some reason
     ;; Let flycheck handle parse errors
     (setq-default js2-show-parse-errors nil)
     (setq-default js2-strict-missing-semi-warning nil)
@@ -790,4 +845,10 @@
 #+BEGIN_SRC emacs-lisp
   (use-package restclient
     :ensure t)
+#+END_SRC
+* dart
+#+BEGIN_SRC emacs-lisp
+  (use-package dart-mode
+    :ensure t)
+
 #+END_SRC

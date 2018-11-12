@@ -10,6 +10,9 @@
       ido-use-filename-at-point nil
       ido-max-prospects 10)
 
+;; Ignore .DS_Store files with ido mode
+(add-to-list 'ido-ignore-files "\\.DS_Store")
+
 ;; Try out flx-ido for better flex matching between words
 (require 'flx-ido)
 (flx-ido-mode 1)
