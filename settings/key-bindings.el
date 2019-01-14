@@ -144,4 +144,8 @@
 ;; (global-set-key (kbd "C-z") 'shell)
 (global-set-key (kbd "C-x M-z") 'suspend-frame)
 
+;; Like isearch, but adds region (if any) to history and deactivates mark
+(global-set-key (kbd "C-s") 'isearch-forward-use-region)
+(global-set-key (kbd "C-r") 'isearch-backward-use-region)
+
 (provide 'key-bindings)

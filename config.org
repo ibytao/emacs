@@ -7,7 +7,7 @@
   ;;
   ;;theme setup
   ;;
-  ;; (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+  (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-*-Inconsolata Awesome-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-apple-Menlo-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-apple-inconsolata-medium-r-normal--14-*-*-*-*-*-iso10646-1")
@@ -93,6 +93,56 @@
 
   ;; (load-theme 'seti t)
 
+  (use-package solarized-theme
+    :ensure t
+    :init
+    ;; make the fringe stand out from the background
+    ;; (setq solarized-distinct-fringe-background t)
+
+    ;; Don't change the font for some headings and titles
+    (setq solarized-use-variable-pitch nil)
+
+    ;; make the modeline high contrast
+    (setq solarized-high-contrast-mode-line t)
+
+    ;; Use less bolding
+    ;; (setq solarized-use-less-bold t)
+
+    ;; Use more italics
+    ;; (setq solarized-use-more-italic t)
+
+    ;; Use less colors for indicators such as git:gutter, flycheck and similar
+    (setq solarized-emphasize-indicators nil)
+
+    ;; Don't change size of org-mode headlines (but keep other size-changes)
+    (setq solarized-scale-org-headlines nil)
+    (setq solarized-scale-outline-headlines nil)
+
+    (setq x-underline-at-descent-line t)
+
+    (mapc
+     (lambda (face)
+       (set-face-attribute face nil :weight 'normal :underline nil))
+     (face-list))
+
+    (load-theme 'solarized-dark t)
+    (custom-set-faces
+     ;; '(company-preview
+     ;;   ((t (:foreground "#859900" :underline t))))
+     ;; '(company-preview-common
+     ;;   ((t (:inherit company-preview))))
+     ;; '(company-tooltip
+     ;;   ((t (:background "lightgray" :foreground "black"))))
+
+     '(company-tooltip-selection
+       ((t (:background "#1b3d4a" :foreground "#859900"))))
+     '(company-tooltip-common
+       ((((type x)) (:inherit company-tooltip :weight bold))
+        (t (:inherit company-tooltip))))
+     '(company-tooltip-common-selection
+       ((((type x)) (:inherit company-tooltip-selection :weight bold))
+        (t (:inherit company-tooltip-selection)))))
+    )
 
   ;; (use-package atom-one-dark-theme
   ;;   :ensure t
@@ -230,9 +280,9 @@
     :ensure t
     :init
     ;; you can select the key you prefer to
-    ;; (global-unset-key (kbd "s-j"))
-    ;; (global-set-key (kbd "s-j") 'ace-jump-mode)
-    ;; (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)  
+    (global-unset-key (kbd "s-j"))
+    (global-set-key (kbd "s-j") 'ace-jump-mode)
+    (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)  
     )
 #+END_SRC
 * ace-isearch
@@ -240,8 +290,8 @@
   (use-package ace-isearch
     :ensure t
     :config
-    (setq ace-isearch-jump-delay 0.4)
-    (global-ace-isearch-mode +1)
+    ;; (setq ace-isearch-jump-delay 0.4)
+    ;; (global-ace-isearch-mode +1)
     )
 #+END_SRC
 * ivy
@@ -271,7 +321,7 @@
      :ensure t
      :config
      (recentf-mode 1)
-     (setq recentf-max-menu-items 350)
+     (setq recentf-max-menu-items 1000)
      (defun recentf-ido-find-file ()
        "Use `ido-completing-read' to find a recent file."
        (interactive)
@@ -431,14 +481,14 @@
 #+END_SRC
 * magit
 #+BEGIN_SRC emacs-lisp
-;;
-;;magit
-;;
-(use-package magit
-  :ensure t
-  :config
-  (global-set-key (kbd "C-x m") 'magit)
-  )
+  ;;
+  ;;magit
+  ;;
+  (use-package magit
+    :ensure t
+    :config
+    (global-set-key (kbd "C-x m") 'magit)
+    )
 #+END_SRC
 * guide-key
 #+BEGIN_SRC emacs-lisp
@@ -646,11 +696,7 @@
     ;; Let flycheck handle parse errors
     (setq-default js2-show-parse-errors nil)
     (setq-default js2-strict-missing-semi-warning nil)
-    (setq-default js2-strict-trailing-comma-warning t) ;; jshint does not warn about this now for some reason
-    ;; Let flycheck handle parse errors
-    (setq-default js2-show-parse-errors nil)
-    (setq-default js2-strict-missing-semi-warning nil)
-    (setq-default js2-strict-trailing-comma-warning t) ;; jshint does not warn about this now for some reason
+    (setq-default js2-strict-trailing-comma-warning nil) ;; jshint does not warn about this now for some reason
     (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
 #+END_SRC
 * tern
@@ -781,13 +827,13 @@
 * python
   #+begin_src emacs-lisp
     (setq python-shell-completion-native-enable nil)
-    (use-package company-jedi
-      :ensure t
-      :config
-      (add-hook 'python-mode-hook 'jedi:setup)
-      (add-hook 'python-mode-hook (lambda ()
-                                    (add-to-list 'company-backends 'company-jedi)))
-      )
+    ;; (use-package company-jedi
+    ;;   :ensure t
+    ;;   :config
+    ;;   (add-hook 'python-mode-hook 'jedi:setup)
+    ;;   (add-hook 'python-mode-hook (lambda ()
+    ;;                                 (add-to-list 'company-backends 'company-jedi)))
+    ;;   )
 
     (use-package elpy
       :commands (elpy-enable)
@@ -797,13 +843,13 @@
       ;; (setq elpy-rpc-python-command "python3")
       ;; For interactive shell
       ;; (setq python-shell-interpreter "python3")
-      (add-hook 'python-mode-hook
-                (lambda ()
-                  (smartparens-mode t)
-                  (use-package pyvenv
-                    :config
-                    (pyvenv-activate "~/projects/virtual-env/"))
-                  ))
+      ;; (add-hook 'python-mode-hook
+      ;;           (lambda ()
+      ;;             (smartparens-mode t)
+      ;;             (use-package pyvenv
+      ;;               :config
+      ;;               (pyvenv-activate "~/projects/virtual-env/"))
+      ;;             ))
       )
 
   #+end_src
@@ -846,18 +892,99 @@
   #+end_src
 * email
 #+BEGIN_SRC emacs-lisp
-  ;; (setq user-full-name "taoby")
-  ;; (setq user-mail-address "taoby@chinacreditforce.com")
+  (when (eq system-type 'darwin)
+    (add-to-list 'load-path "/usr/local/Cellar/mu/1.0/share/emacs/site-lisp/mu/mu4e"))
 
-  ;; (setq send-mail-function 'smtpmail-send-it)
+  (require 'mu4e)
+  ;; Use mu4e as default mail agent
+  (setq mail-user-agent 'mu4e-user-agent)
+  ;; Mail folder set to ~/Maildir
+  (setq mu4e-maildir "~/Mail/exmail")         ; NOTE: should not be symbolic link
+  ;; Fetch mail by offlineimap
+  ;; (setq mu4e-get-mail-command "offlineimap")
+  (setq mu4e-get-mail-command "mbsync exmail")
+  ;; Fetch mail in 60 sec interval
+  (setq mu4e-update-interval 60)
 
-  ;; (setq smtpmail-smtp-server "smtp.exmail.qq.com")
-  ;; (setq smtpmail-smtp-user "taoby@chinacreditforce.com")
-  ;; (setq smtpmail-smtp-service 465)
-  ;; (setq smtpmail-stream-type 'starttls)
+  ;; folder for sent messages
+  ;; (setq mu4e-sent-folder   "/Outbox")
+  ;; unfinished messages
+  ;; (setq mu4e-drafts-folder "/DraftBox")
+  ;; trashed messages
+  ;; (setq mu4e-trash-folder  "/Trash")
+  ;; saved messages
+  ;; (setq mu4e-trash-folder  "/Archive")
 
-  ;; (setq smtpmail-debug-info t)
-  ;; (setq smtpmail-debug-verb t)
+  (setq mu4e-hide-index-messages t)
+
+  (require 'mu4e-contrib)
+  (setq mu4e-html2text-command 'mu4e-shr2text)
+  ;; try to emulate some of the eww key-bindings
+  (add-hook 'mu4e-view-mode-hook
+            (lambda ()
+              (local-set-key (kbd "<tab>") 'shr-next-link)
+              (local-set-key (kbd "<backtab>") 'shr-previous-link)))
+
+  (setq mu4e-view-show-images t)
+
+  (global-set-key (kbd "C-c m") 'mu4e)
+
+  ;; SMTP setup
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type 'ssl
+        starttls-use-gnutls t)
+  ;; Personal info
+  (setq user-full-name "bangyao, Tao")          ; FIXME: add your info here
+  (setq user-mail-address "taoby@xysl.com"); FIXME: add your info here
+  ;; mail setup
+  (setq smtpmail-smtp-server "smtp.exmail.qq.com")
+  (setq smtpmail-smtp-service 465)
+  (setq smtpmail-smtp-user "taoby@xysl.com") ; FIXME: add your mail addr here
+
+  (require 'org-mu4e)
+  (setq org-mu4e-convert-to-html t)
+
+  ;; this seems to fix the babel file saving thing
+  (defun org~mu4e-mime-replace-images (str current-file)
+    "Replace images in html files with cid links."
+    (let (html-images)
+      (cons
+       (replace-regexp-in-string ;; replace images in html
+        "src=\"\\([^\"]+\\)\""
+        (lambda (text)
+          (format
+           "src=\"./:%s\""
+           (let* ((url (and (string-match "src=\"\\([^\"]+\\)\"" text)
+                            (match-string 1 text)))
+                  (path (expand-file-name
+                         url (file-name-directory current-file)))
+                  (ext (file-name-extension path))
+                  (id (replace-regexp-in-string "[\/\\\\]" "_" path)))
+             (add-to-list 'html-images
+                          (org~mu4e-mime-file
+                           (concat "image/" ext) path id))
+             id)))
+        str)
+       html-images)))
+
+
+  (defun mu4e-compose-org-mail ()
+    (interactive)
+    (mu4e-compose-new)
+    (org-mu4e-compose-org-mode))
+
+  (use-package mu4e-alert
+    :ensure t
+    :after mu4e
+    :hook ((after-init . mu4e-alert-enable-mode-line-display)
+           (after-init . mu4e-alert-enable-notifications))
+    :config
+    (mu4e-alert-set-default-style 'libnotify)
+    ;; (mu4e-alert-set-default-style 'notifier)
+    )
+
+  ;;china
+  (setenv "XAPIAN_CJK_NGRAM" "1")
 #+END_SRC
 * restclient
 #+BEGIN_SRC emacs-lisp
@@ -879,4 +1006,8 @@
     ;; (setq cnfonts-profiles
     ;;       '("program" "org-mode"))
     )
+#+END_SRC
+* rjsx
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("app\\/.*\\.js\\'" . rjsx-mode))
 #+END_SRC
