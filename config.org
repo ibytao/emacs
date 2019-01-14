@@ -7,7 +7,7 @@
   ;;
   ;;theme setup
   ;;
-  (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-*-Inconsolata Awesome-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-apple-Menlo-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-apple-inconsolata-medium-r-normal--14-*-*-*-*-*-iso10646-1")
@@ -16,69 +16,87 @@
   ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-italic-normal-*-16-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
   ;; Setting English Font
-  ;; (set-face-attribute 'default nil :font "Operator Mono Book 14")
+  ;; (set-face-attribute 'default nil :font "Operator Mono Book 16")
+  (add-hook 'prog-mode-hook (lambda ()
+                              ;; (set-face-attribute 'default nil :font "-outline-Consolas-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+                              ;; (set-face-attribute 'default nil :font "Operator Mono Book 17")
+                              (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+                              ))
 
-  ;; (set-face-attribute
-  ;;  'default nil
-  ;;  :font (font-spec :name "-*-Monaco-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
-  ;;                   :weight 'normal
-  ;;                   :slant 'normal
-  ;;                   :size 13))
+  (add-hook 'org-mode-hook (lambda ()
+                             (set-face-attribute
+                              'default nil
+                              :font (font-spec :name "-*-Monaco-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
+                                               :weight 'normal
+                                               :slant 'normal
+                                               :size 14))
+                             (dolist (charset '(kana han symbol cjk-misc bopomofo))
+                               (set-fontset-font
+                                (frame-parameter nil 'font)
+                                charset
+                                (font-spec :name "-*-Hiragino Sans GB-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+                                           :weight 'normal
+                                           :slant 'normal
+                                           :size 16.0)))
+                             ))
 
-  ;; (use-package solarized-theme
-  ;;   :ensure t
-  ;;   :init
-  ;;   ;; make the fringe stand out from the background
-  ;;   ;; (setq solarized-distinct-fringe-background t)
-
-  ;;   ;; Don't change the font for some headings and titles
-  ;;   (setq solarized-use-variable-pitch nil)
-
-  ;;   ;; make the modeline high contrast
-  ;;   (setq solarized-high-contrast-mode-line t)
-
-  ;;   ;; Use less bolding
-  ;;   ;; (setq solarized-use-less-bold t)
-
-  ;;   ;; Use more italics
-  ;;   ;; (setq solarized-use-more-italic t)
-
-  ;;   ;; Use less colors for indicators such as git:gutter, flycheck and similar
-  ;;   (setq solarized-emphasize-indicators nil)
-
-  ;;   ;; Don't change size of org-mode headlines (but keep other size-changes)
-  ;;   (setq solarized-scale-org-headlines nil)
-  ;;   (setq solarized-scale-outline-headlines nil)
-
-  ;;   (setq x-underline-at-descent-line t)
-
-  ;;   (mapc
-  ;;    (lambda (face)
-  ;;      (set-face-attribute face nil :weight 'normal :underline nil))
-  ;;    (face-list))
-
-  ;;   (load-theme 'solarized-dark t)
-  ;;   (custom-set-faces
-  ;;    ;; '(company-preview
-  ;;    ;;   ((t (:foreground "#859900" :underline t))))
-  ;;    ;; '(company-preview-common
-  ;;    ;;   ((t (:inherit company-preview))))
-  ;;    ;; '(company-tooltip
-  ;;    ;;   ((t (:background "lightgray" :foreground "black"))))
-
-  ;;    '(company-tooltip-selection
-  ;;      ((t (:background "#1b3d4a" :foreground "#859900"))))
-  ;;    '(company-tooltip-common
-  ;;      ((((type x)) (:inherit company-tooltip :weight bold))
-  ;;       (t (:inherit company-tooltip))))
-  ;;    '(company-tooltip-common-selection
-  ;;      ((((type x)) (:inherit company-tooltip-selection :weight bold))
-  ;;       (t (:inherit company-tooltip-selection)))))
-  ;;   )
-
-  (use-package atom-one-dark-theme
+  (use-package solarized-theme
     :ensure t
+    :init
+    ;; make the fringe stand out from the background
+    ;; (setq solarized-distinct-fringe-background t)
+
+    ;; Don't change the font for some headings and titles
+    (setq solarized-use-variable-pitch nil)
+
+    ;; make the modeline high contrast
+    (setq solarized-high-contrast-mode-line t)
+
+    ;; Use less bolding
+    ;; (setq solarized-use-less-bold t)
+
+    ;; Use more italics
+    ;; (setq solarized-use-more-italic t)
+
+    ;; Use less colors for indicators such as git:gutter, flycheck and similar
+    (setq solarized-emphasize-indicators nil)
+
+    ;; Don't change size of org-mode headlines (but keep other size-changes)
+    (setq solarized-scale-org-headlines nil)
+    (setq solarized-scale-outline-headlines nil)
+
+    (setq x-underline-at-descent-line t)
+
+    (mapc
+     (lambda (face)
+       (set-face-attribute face nil :weight 'normal :underline nil))
+     (face-list))
+
+    (load-theme 'solarized-dark t)
+
+    (custom-set-faces
+     ;; '(company-preview
+     ;;   ((t (:foreground "#859900" :underline t))))
+     ;; '(company-preview-common
+     ;;   ((t (:inherit company-preview))))
+     ;; '(company-tooltip
+     ;;   ((t (:background "lightgray" :foreground "black"))))
+     '(company-tooltip-selection
+       ((t (:background "#1b3d4a" :foreground "#859900"))))
+     '(company-tooltip-common
+       ((((type x)) (:inherit company-tooltip :weight bold))
+        (t (:inherit company-tooltip))))
+     '(company-tooltip-common-selection
+       ((((type x)) (:inherit company-tooltip-selection :weight bold))
+        (t (:inherit company-tooltip-selection)))))
     )
+
+  ;; (load-theme 'seti t)
+
+
+  ;; (use-package atom-one-dark-theme
+  ;;   :ensure t
+  ;;   )
 
   ;; (use-package zenburn-theme
   ;;   :ensure t)
@@ -90,7 +108,7 @@
   ;;   )
 
   ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
-  ;; (load-theme 'solarized-dark t) 
+  ;; (load-theme 'solarized-dark t)
 
   (add-to-list 'default-frame-alist
                '(ns-transparent-titlebar . t))
@@ -123,7 +141,7 @@
      (setq spaceline-all-the-icons-flycheck-alternate t)
      ;;(setq spaceline-all-the-icons-icon-set-modified 'toggle)
      ;; 'slant, 'arrow, 'cup, 'wave, 'none
-     (setq spaceline-all-the-icons-separator-type 'cup)
+     (setq spaceline-all-the-icons-separator-type 'slant)
      (setq spaceline-all-the-icons-slim-render t)
 
      (spaceline-toggle-all-the-icons-fullscreen)
@@ -222,7 +240,7 @@
   (use-package ace-isearch
     :ensure t
     :config
-    (setq ace-isearch-jump-delay 0.5)
+    (setq ace-isearch-jump-delay 0.4)
     (global-ace-isearch-mode +1)
     )
 #+END_SRC
@@ -487,7 +505,7 @@
     :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode t)))
     (setq org-hide-leading-stars t)
-    ;; (setq org-ellipsis "⤵")
+    (setq org-ellipsis "⤵")
     (setq org-log-done 'time)
     )
 
@@ -851,4 +869,14 @@
   (use-package dart-mode
     :ensure t)
 
+#+END_SRC
+* cnfonts
+#+BEGIN_SRC emacs-lisp
+  (use-package cnfonts
+    :ensure t
+    :config
+    ;; (cnfonts-enable)
+    ;; (setq cnfonts-profiles
+    ;;       '("program" "org-mode"))
+    )
 #+END_SRC

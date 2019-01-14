@@ -200,3 +200,4 @@
 ;;   )
 
 ;; (add-hook 'buffer-list-update-hook 'highlight-selected-window)
+(put 'upcase-region 'disabled nil)
