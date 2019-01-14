@@ -138,4 +138,10 @@
 (global-set-key (kbd "C-x C-j") 'dired-jump) (autoload 'dired-jump "dired")
 (global-set-key (kbd "C-x M-j") '(λ (dired-jump 1)))
 
+;; Make shell more convenient, and suspend-frame less
+;; ansi-term
+(global-set-key (kbd "C-z") '(lambda ()(interactive)(ansi-term "/usr/local/bin/fish")))
+;; (global-set-key (kbd "C-z") 'shell)
+(global-set-key (kbd "C-x M-z") 'suspend-frame)
+
 (provide 'key-bindings)
