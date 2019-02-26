@@ -124,8 +124,22 @@
 (global-set-key (kbd "C-S-w") 'kill-to-beginning-of-line)
 
 ;; Line movement
-(global-set-key (kbd "<C-S-down>") 'move-text-down)
-(global-set-key (kbd "<C-S-up>") 'move-text-up)
+(defun move-line-up ()
+  "Move up the current line."
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
+
+(defun move-line-down ()
+  "Move down the current line."
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
+(global-set-key (kbd "<C-S-down>") 'move-line-down)
+(global-set-key (kbd "<C-S-up>") 'move-line-up)
 
 ;; Like isearch, but adds region (if any) to history and deactivates mark
 ;; (global-set-key (kbd "C-s") 'isearch-forward-use-region)
