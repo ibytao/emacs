@@ -69,6 +69,8 @@
   (define-key org-mode-map (kbd "<C-return>") 'org-insert-heading-respect-content)
   (define-key org-mode-map (kbd "<C-S-return>") 'org-insert-todo-heading-respect-content)
   (define-key org-mode-map (kbd "<M-return>") 'org-meta-return)
+  (define-key org-mode-map (kbd "C-c /") 'org-sparse-tree)
+  (define-key org-mode-map (kbd "C-c l") 'org-store-link)
   )
 (add-hook 'org-mode-hook 'my-org-hook)
 

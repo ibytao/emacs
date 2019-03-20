@@ -230,7 +230,8 @@
   (use-package expand-region
     :ensure t
     :bind
-    (("C-'" . 'er/expand-region))
+    (("C-=" . 'er/expand-region))
+    (("C-+" . 'er/contract-region))
     :config
     (pending-delete-mode t)
     )
@@ -321,7 +322,7 @@
      :ensure t
      :config
      (recentf-mode 1)
-     (setq recentf-max-menu-items 1000)
+     (setq recentf-max-saved-items 1000)
      (defun recentf-ido-find-file ()
        "Use `ido-completing-read' to find a recent file."
        (interactive)
@@ -555,9 +556,12 @@
     :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode t)))
     (setq org-hide-leading-stars t)
-    (setq org-ellipsis "⤵")
+    (setq org-ellipsis "⤵") ;; ⤵ ↴ ⬎ ⤷
+    (set-face-attribute 'org-ellipsis nil :underline nil)
     (setq org-log-done 'time)
     )
+
+  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
   (use-package ox-latex
     :config
@@ -824,6 +828,12 @@
                     '(add-to-list 'company-backends '(company-meghanada)))
                   (add-hook 'before-save-hook 'meghanada-code-beautify-before-save))))
   #+END_SRC
+* groovy
+#+BEGIN_SRC emacs-lisp
+  (use-package groovy-mode
+    :ensure t
+   )
+#+END_SRC
 * python
   #+begin_src emacs-lisp
     (setq python-shell-completion-native-enable nil)
