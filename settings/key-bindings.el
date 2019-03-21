@@ -71,6 +71,8 @@
   (define-key org-mode-map (kbd "<M-return>") 'org-meta-return)
   (define-key org-mode-map (kbd "C-c /") 'org-sparse-tree)
   (define-key org-mode-map (kbd "C-c l") 'org-store-link)
+  (define-key org-mode-map (kbd "C-c a") 'org-agenda)
+  (define-key org-mode-map (kbd "C-c c") 'org-capture)
   )
 (add-hook 'org-mode-hook 'my-org-hook)
 

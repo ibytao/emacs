@@ -562,6 +562,7 @@
     )
 
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+  (setq org-cycle-separator-lines 1)
 
   (use-package ox-latex
     :config
@@ -788,7 +789,6 @@
       (add-hook 'irony-mode-hook 'my-irony-mode-hook)
       (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
   #+END_SRC
-
 * Company-irony-c-headers
   #+BEGIN_SRC emacs-lisp
     (use-package company-irony
