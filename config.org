@@ -444,7 +444,8 @@
     (smartparens-global-mode t)
     (add-hook 'org-mode-hook (lambda () (smartparens-mode -1)))
     (add-hook 'clojure-mode-hook (lambda () (smartparens-mode -1)))
-    (add-hook 'emacs-lisp-mode (lambda () (smartparens-mode -1)))
+    (add-hook 'emacs-lisp-mode-hook (lambda () (smartparens-mode -1)))
+    (add-hook 'cider-repl-mode-hook (lambda () (smartparens-mode -1)))
     )
 #+END_SRC
 * paredit
@@ -453,7 +454,7 @@
     :ensure t
     :config
     (add-hook 'clojure-mode-hook 'paredit-mode)
-    ;; (add-hook 'cider-repl-mode-hook (lambda () (paredit-mode 1)))
+    (add-hook 'cider-repl-mode-hook 'paredit-mode)
     (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
     ;; Enable `paredit-mode' in the minibuffer, during `eval-expression'.
     ;; (defun conditionally-enable-paredit-mode
