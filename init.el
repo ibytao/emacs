@@ -102,6 +102,9 @@
 (setq web-mode-indent-style 2)
 (setq web-mode-html-offset 2)
 (setq web-mode-script-offset 2)
+(setq-default web-mode-comment-formats
+              '(("javascript" . "//")
+                ))
 
 ;;Setup key bindings
 (require 'key-bindings)
