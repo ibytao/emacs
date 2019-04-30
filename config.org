@@ -236,6 +236,17 @@
     (pending-delete-mode t)
     )
 #+END_SRC
+* change-inner
+#+BEGIN_SRC emacs-lisp
+  (use-package change-inner
+    :ensure t
+    :bind
+    (("M-I" . 'change-inner))
+    (("M-O" . 'change-outer))
+    (("s-i" . 'copy-inner))
+    (("s-o" . 'copy-outer))
+    )
+#+END_SRC
 * multiple-cursors
 #+BEGIN_SRC emacs-lisp
   ;;
@@ -517,7 +528,7 @@
     :config
     (global-company-mode t)
     (setq company-idle-delay 0)
-    (setq company-minimum-prefix-length 2)
+    (setq company-minimum-prefix-length 1)
     (with-eval-after-load 'company
       (define-key company-active-map (kbd "C-n") #'company-select-next)
       (define-key company-active-map (kbd "C-p") #'company-select-previous))

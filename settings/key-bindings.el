@@ -96,10 +96,6 @@
 ;; Indentation help
 (global-set-key (kbd "M-j") (λ (join-line -1)))
 
-;; Find file in project
-(global-unset-key (kbd "s-o"))
-(global-set-key (kbd "s-o") 'projectile-find-file)
-
 (global-set-key (kbd "C-c y") 'bury-buffer)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
