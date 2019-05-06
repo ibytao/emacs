@@ -162,4 +162,9 @@
 (global-set-key (kbd "C-s") 'isearch-forward-use-region)
 (global-set-key (kbd "C-r") 'isearch-backward-use-region)
 
+
+(global-set-key (kbd "s-1") 'delete-other-windows)
+(global-set-key (kbd "s-2") 'split-window-below)
+(global-set-key (kbd "s-3") 'split-window-horizontally)
+
 (provide 'key-bindings)
