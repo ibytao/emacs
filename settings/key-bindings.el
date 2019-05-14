@@ -167,4 +167,7 @@
 (global-set-key (kbd "s-2") 'split-window-below)
 (global-set-key (kbd "s-3") 'split-window-horizontally)
 
+(global-set-key (kbd "C-;") 'marker-visit-prev)
+(global-set-key (kbd "C-:") 'marker-visit-next)
+
 (provide 'key-bindings)
