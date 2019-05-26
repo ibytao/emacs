@@ -7,7 +7,7 @@
   ;;
   ;;theme setup
   ;;
-  (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+  (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-*-Inconsolata Awesome-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-apple-Menlo-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-apple-inconsolata-medium-r-normal--14-*-*-*-*-*-iso10646-1")
@@ -17,28 +17,28 @@
   ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
   ;; Setting English Font
   ;; (set-face-attribute 'default nil :font "Operator Mono Book 16")
-  (add-hook 'prog-mode-hook (lambda ()
-                              ;; (set-face-attribute 'default nil :font "-outline-Consolas-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-                              ;; (set-face-attribute 'default nil :font "Operator Mono Book 17")
-                              (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-                              ))
+  ;; (add-hook 'prog-mode-hook
+  ;;           (lambda ()
+  ;;             (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+  ;;             ))
 
-  (add-hook 'org-mode-hook (lambda ()
-                             (set-face-attribute
-                              'default nil
-                              :font (font-spec :name "-*-Monaco-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
-                                               :weight 'normal
-                                               :slant 'normal
-                                               :size 14))
-                             (dolist (charset '(kana han symbol cjk-misc bopomofo))
-                               (set-fontset-font
-                                (frame-parameter nil 'font)
-                                charset
-                                (font-spec :name "-*-Hiragino Sans GB-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-                                           :weight 'normal
-                                           :slant 'normal
-                                           :size 16.0)))
-                             ))
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (set-face-attribute
+               'default nil
+               :font (font-spec :name "-*-Monaco-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
+                                :weight 'normal
+                                :slant 'normal
+                                :size 16))
+              (dolist (charset '(kana han symbol cjk-misc bopomofo))
+                (set-fontset-font
+                 (frame-parameter nil 'font)
+                 charset
+                 (font-spec :name "-*-Hiragino Sans GB-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+                            :weight 'normal
+                            :slant 'normal
+                            :size 20.0)))
+              ))
 
   (use-package solarized-theme
     :ensure t
@@ -394,9 +394,11 @@
     :ensure t
     :config
     (projectile-mode t)
-    (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
     (setq projectile-completion-system 'ivy)
     (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" ))
+    ;; Find file in project
+    (global-set-key (kbd "s-p") 'projectile-find-file)
     )
 #+END_SRC
 * prodigy
@@ -513,7 +515,7 @@
   :ensure t
   :config
   (guide-key-mode 1)
-  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-c RET"))
+  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-c RET" "C-c"))
   (setq guide-key/recursive-key-sequence-flag t)
   (setq guide-key/popup-window-position 'bottom)
   )
