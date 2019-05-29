@@ -7,7 +7,7 @@
   ;;
   ;;theme setup
   ;;
-  (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-*-Inconsolata Awesome-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-apple-Menlo-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-apple-inconsolata-medium-r-normal--14-*-*-*-*-*-iso10646-1")
@@ -16,21 +16,16 @@
   ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-italic-normal-*-16-*-*-*-m-0-iso10646-1")
   ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
   ;; Setting English Font
-  ;; (set-face-attribute 'default nil :font "Operator Mono Book 16")
-  ;; (add-hook 'prog-mode-hook
-  ;;           (lambda ()
-  ;;             (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
-  ;;             ))
-
+  (set-face-attribute 'default nil :font "Operator Mono Book 18")
   (add-hook 'org-mode-hook
             (lambda ()
-              (set-face-attribute
-               'default nil
-               :font (font-spec :name "-*-Monaco-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1"
-                                :weight 'normal
-                                :slant 'normal
-                                :size 16))
-              (dolist (charset '(kana han symbol cjk-misc bopomofo))
+              ;; (set-face-attribute
+              ;;  'org-table nil
+              ;;  :font (font-spec :name "-*-Operator Mono-Book-normal-normal-*-*-*-*-*-m-0-iso10646-1"
+              ;;                   :weight 'normal
+              ;;                   :slant 'normal
+              ;;                   :size 18))
+              (dolist (charset '(kana han cjk-misc bopomofo))
                 (set-fontset-font
                  (frame-parameter nil 'font)
                  charset
@@ -38,6 +33,7 @@
                             :weight 'normal
                             :slant 'normal
                             :size 20.0)))
+
               ))
 
   (use-package solarized-theme
@@ -93,57 +89,6 @@
 
   ;; (load-theme 'seti t)
 
-  (use-package solarized-theme
-    :ensure t
-    :init
-    ;; make the fringe stand out from the background
-    ;; (setq solarized-distinct-fringe-background t)
-
-    ;; Don't change the font for some headings and titles
-    (setq solarized-use-variable-pitch nil)
-
-    ;; make the modeline high contrast
-    (setq solarized-high-contrast-mode-line t)
-
-    ;; Use less bolding
-    ;; (setq solarized-use-less-bold t)
-
-    ;; Use more italics
-    ;; (setq solarized-use-more-italic t)
-
-    ;; Use less colors for indicators such as git:gutter, flycheck and similar
-    (setq solarized-emphasize-indicators nil)
-
-    ;; Don't change size of org-mode headlines (but keep other size-changes)
-    (setq solarized-scale-org-headlines nil)
-    (setq solarized-scale-outline-headlines nil)
-
-    (setq x-underline-at-descent-line t)
-
-    (mapc
-     (lambda (face)
-       (set-face-attribute face nil :weight 'normal :underline nil))
-     (face-list))
-
-    (load-theme 'solarized-dark t)
-    (custom-set-faces
-     ;; '(company-preview
-     ;;   ((t (:foreground "#859900" :underline t))))
-     ;; '(company-preview-common
-     ;;   ((t (:inherit company-preview))))
-     ;; '(company-tooltip
-     ;;   ((t (:background "lightgray" :foreground "black"))))
-
-     '(company-tooltip-selection
-       ((t (:background "#1b3d4a" :foreground "#859900"))))
-     '(company-tooltip-common
-       ((((type x)) (:inherit company-tooltip :weight bold))
-        (t (:inherit company-tooltip))))
-     '(company-tooltip-common-selection
-       ((((type x)) (:inherit company-tooltip-selection :weight bold))
-        (t (:inherit company-tooltip-selection)))))
-    )
-
   ;; (use-package atom-one-dark-theme
   ;;   :ensure t
   ;;   )
@@ -160,11 +105,11 @@
   ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
   ;; (load-theme 'solarized-dark t)
 
-  (add-to-list 'default-frame-alist
-               '(ns-transparent-titlebar . t))
+  ;; (add-to-list 'default-frame-alist
+  ;;              '(ns-transparent-titlebar . t))
   ;; or dark - depending on your theme
-  (add-to-list 'default-frame-alist
-               '(ns-appearance . dark))
+  ;; (add-to-list 'default-frame-alist
+  ;;              '(ns-appearance . dark))
   ;; (setq ns-use-proxy-icon nil) (setq frame-title-format nil)
 #+END_SRC
 * spaceline
