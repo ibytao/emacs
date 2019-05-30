@@ -7,35 +7,6 @@
   ;;
   ;;theme setup
   ;;
-  ;; (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
-  ;; (set-face-attribute 'default nil :font "-*-Inconsolata Awesome-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-  ;; (set-face-attribute 'default nil :font "-apple-Menlo-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-  ;; (set-face-attribute 'default nil :font "-apple-inconsolata-medium-r-normal--14-*-*-*-*-*-iso10646-1")
-  ;; (set-face-attribute 'default nil :font "-*-Hack-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-  ;; (set-face-attribute 'default nil :font "-outline-Consolas-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-  ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-italic-normal-*-16-*-*-*-m-0-iso10646-1")
-  ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
-  ;; Setting English Font
-  (set-face-attribute 'default nil :font "Operator Mono Book 18")
-  (add-hook 'org-mode-hook
-            (lambda ()
-              ;; (set-face-attribute
-              ;;  'org-table nil
-              ;;  :font (font-spec :name "-*-Operator Mono-Book-normal-normal-*-*-*-*-*-m-0-iso10646-1"
-              ;;                   :weight 'normal
-              ;;                   :slant 'normal
-              ;;                   :size 18))
-              (dolist (charset '(kana han cjk-misc bopomofo))
-                (set-fontset-font
-                 (frame-parameter nil 'font)
-                 charset
-                 (font-spec :name "-*-Hiragino Sans GB-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
-                            :weight 'normal
-                            :slant 'normal
-                            :size 20.0)))
-
-              ))
-
   (use-package solarized-theme
     :ensure t
     :init
@@ -78,12 +49,12 @@
      ;; '(company-tooltip
      ;;   ((t (:background "lightgray" :foreground "black"))))
      '(company-tooltip-selection
-       ((t (:background "#1b3d4a" :foreground "#859900"))))
+       ((t (:background "#1b3d4a" :foreground "#859900" :weight normal))))
      '(company-tooltip-common
-       ((((type x)) (:inherit company-tooltip :weight bold))
+       ((((type x)) (:inherit company-tooltip :weight normal))
         (t (:inherit company-tooltip))))
      '(company-tooltip-common-selection
-       ((((type x)) (:inherit company-tooltip-selection :weight bold))
+       ((((type x)) (:inherit company-tooltip-selection :weight normal))
         (t (:inherit company-tooltip-selection)))))
     )
 
@@ -111,6 +82,49 @@
   ;; (add-to-list 'default-frame-alist
   ;;              '(ns-appearance . dark))
   ;; (setq ns-use-proxy-icon nil) (setq frame-title-format nil)
+
+  ;;
+  ;;font setup
+  ;;
+
+  ;; (set-face-attribute 'default nil :font "-apple-Monaco-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-*-Inconsolata Awesome-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-apple-Menlo-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-apple-inconsolata-medium-r-normal--14-*-*-*-*-*-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-*-Hack-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-outline-Consolas-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-italic-normal-*-18-*-*-*-m-0-iso10646-1")
+  ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-normal-normal-*-18-*-*-*-m-0-iso10646-1")
+
+  ;; Setting English Font
+  (set-face-attribute 'default nil :font "Operator Mono 18")
+
+  (set-face-attribute 'font-lock-keyword-face  nil :weight 'normal)
+  (set-face-attribute 'font-lock-constant-face  nil :weight 'normal)
+
+  (set-face-attribute 'font-lock-builtin-face  nil :weight 'normal)
+  (set-face-attribute 'font-lock-negation-char-face  nil :weight 'normal)
+  (set-face-attribute 'font-lock-preprocessor-face  nil :weight 'normal)
+  (set-face-attribute 'font-lock-warning-face  nil :weight 'normal)
+  (set-face-attribute 'font-lock-variable-name-face  nil :weight 'normal)
+
+  (set-face-attribute
+   'font-lock-comment-face nil
+   :font "-*-Operator Mono-normal-italic-normal-*-*-*-*-*-m-0-iso10646-1")
+
+  (add-hook
+   'org-mode-hook
+   (lambda ()
+     (dolist (charset '(kana han cjk-misc bopomofo))
+       (set-fontset-font
+        (frame-parameter nil 'font)
+        charset
+        (font-spec
+         :name "-*-Hiragino Sans GB-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
+         :weight 'normal
+         :slant 'normal
+         :size 20.0)))
+     ))
 #+END_SRC
 * spaceline
 #+BEGIN_SRC emacs-lisp
@@ -136,7 +150,7 @@
      (setq spaceline-all-the-icons-flycheck-alternate t)
      ;;(setq spaceline-all-the-icons-icon-set-modified 'toggle)
      ;; 'slant, 'arrow, 'cup, 'wave, 'none
-     (setq spaceline-all-the-icons-separator-type 'slant)
+     (setq spaceline-all-the-icons-separator-type 'cup)
      (setq spaceline-all-the-icons-slim-render t)
 
      (spaceline-toggle-all-the-icons-fullscreen)
@@ -647,6 +661,7 @@
          (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
          (add-hook 'web-mode-hook
                    (lambda ()
+                     (set-face-attribute 'web-mode-constant-face nil :weight 'normal)
                      ;; (yas-activate-extra-mode 'web-mode)
                      ;; (web-mode-set-content-type "jsx")
                      (flycheck-mode 1)
