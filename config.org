@@ -184,12 +184,12 @@
   ;;
   ;;smex
   ;;
-  (use-package smex
-    :ensure t
-    :init
-    (smex-initialize)
-    :bind (("M-x" . 'smex))
-    )
+  ;; (use-package smex
+  ;;   :ensure t
+  ;;   :init
+  ;;   (smex-initialize)
+  ;;   :bind (("M-x" . 'smex))
+  ;;   )
 #+END_SRC
 * expand-region
 #+BEGIN_SRC emacs-lisp
@@ -282,7 +282,25 @@
   ;;
   (use-package ivy
     :ensure t
+    :diminish (ivy-mode . "")
+    :config
+    (ivy-mode 1)
+    (setq ivy-use-virutal-buffers t)
+    (setq enable-recursive-minibuffers t)
+    (setq ivy-height 10)
+    (setq ivy-initial-inputs-alist nil)
+    (setq ivy-count-format "%d/%d ")
+    (setq ivy-re-builders-alist
+          `((t . ivy--regex-ignore-order)))
     )
+#+END_SRC
+* counsel
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+   :ensure t
+   :bind (("M-x" . counsel-M-x)
+          ("\C-x \C-f" . counsel-find-file))
+  )
 #+END_SRC
 * swiper
 #+BEGIN_SRC emacs-lisp
@@ -290,7 +308,7 @@
     :ensure t
     :config
     ;; (global-unset-key (kbd "s-p"))
-    ;; (global-set-key (kbd "s-p") 'swiper)
+    (global-set-key (kbd "C-s") 'swiper)
     )
 #+END_SRC
 * recentf
@@ -361,13 +379,16 @@
   ;;
   (use-package projectile
     :ensure t
+    :bind-keymap
+    ("\C-c p" . projectile-command-map)
     :config
     (projectile-mode t)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
     (setq projectile-completion-system 'ivy)
     (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" ))
     ;; Find file in project
     (global-set-key (kbd "s-p") 'projectile-find-file)
+    (use-package counsel-projectile
+      :ensure t)
     )
 #+END_SRC
 * prodigy
@@ -502,7 +523,7 @@
     :config
     (global-company-mode t)
     (setq company-idle-delay 0)
-    (setq company-minimum-prefix-length 1)
+    (setq company-minimum-prefix-length 2)
     (with-eval-after-load 'company
       (define-key company-active-map (kbd "C-n") #'company-select-next)
       (define-key company-active-map (kbd "C-p") #'company-select-previous))
