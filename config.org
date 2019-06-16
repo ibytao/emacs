@@ -528,13 +528,13 @@
       (define-key company-active-map (kbd "C-n") #'company-select-next)
       (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
-    ;; (add-hook 'css-mode-hook (lambda ()
-    ;;                            (add-to-list (make-local-variable 'company-backends) 'company-css)))
+    (add-hook 'css-mode-hook (lambda ()
+                               (add-to-list (make-local-variable 'company-backends)
+                                            '(company-css company-files company-yasnippet company-capf) )))
 
     (add-hook 'emacs-lisp-mode-hook (lambda ()
-                                      (add-to-list (make-local-variable 'company-backends) 'company-elisp)))
-
-  
+                                      (add-to-list (make-local-variable 'company-backends)
+                                                   'company-elisp)))
     )
 #+END_SRC
 * org
@@ -722,27 +722,40 @@
   ;;web-mode
   ;;
   (use-package web-mode
-         :ensure t
-         :config
-         (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
-         (add-hook 'web-mode-hook
-                   (lambda ()
-                     (set-face-attribute 'web-mode-constant-face nil :weight 'normal)
-                     ;; (yas-activate-extra-mode 'web-mode)
-                     ;; (web-mode-set-content-type "jsx")
-                     ;; (flycheck-mode 1)
-                     ;; disable jshint since we prefer eslint checking
-                     ;; (setq-default flycheck-disabled-checkers
-                     ;;               (append flycheck-disabled-checkers
-                     ;;                       '(javascript-jshint)))
-                     ;; use eslint with web-mode for jsx files
-                     (flycheck-add-mode 'javascript-eslint 'web-mode)
-                     ;; (lsp-vue-enable)
-                     (setq web-mode-style-padding 0)
-                     (setq web-mode-script-padding 0)
-                     ;; (message "now set to: %s" web-mode-content-type)
-                     ))
-         )
+    :ensure t
+    :mode ("\\.vue\\'")
+    :config
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
+    (setq web-mode-attr-indent-offset 2)
+    (setq web-mode-indent-style 2)
+    ;; (setq web-mode-html-offset 2)
+    ;; (setq web-mode-script-offset 2)
+    (setq-default web-mode-comment-formats
+                  '(("javascript" . "//")
+                    ))
+
+    (add-hook 'web-mode-hook
+              (lambda ()
+                (tern-mode t)
+                (set-face-attribute 'web-mode-constant-face nil :weight 'normal)
+                ;; (yas-activate-extra-mode 'web-mode)
+                ;; (web-mode-set-content-type "jsx")
+                ;; (flycheck-mode 1)
+                ;; disable jshint since we prefer eslint checking
+                ;; (setq-default flycheck-disabled-checkers
+                ;;               (append flycheck-disabled-checkers
+                ;;                       '(javascript-jshint)))
+                ;; use eslint with web-mode for jsx files
+                (flycheck-add-mode 'javascript-eslint 'web-mode)
+                ;; (flycheck-select-checker 'javascript-eslint)
+                ;; (lsp-vue-enable)
+                (setq web-mode-style-padding 0)
+                (setq web-mode-script-padding 0)
+                ;; (message "now set to: %s" web-mode-content-type)
+                ))
+    )
 #+END_SRC
 * emmet
 #+BEGIN_SRC emacs-lisp
@@ -754,6 +767,7 @@
     :hook (web-mode css-mode sgml-mode rjsx-mode)
     :config
     ;; (setq emmet-indentation 2)
+    (setq css-indent-offset 2)
     (add-hook 'emmet-mode-hook (lambda()
                                  (setq emmet-indent-after-insert t)))
     )
@@ -766,6 +780,10 @@
   (use-package js2-mode
     :ensure t
     :config
+    (setq-default indent-tabs-mode nil)
+    (setq js-indent-level 2)
+    (setq-default js2-basic-offset 2)
+  
     (setq-default js2-allow-rhino-new-expr-initializer nil)
     (setq-default js2-auto-indent-p nil)
     (setq-default js2-enter-indents-newline nil)
@@ -792,11 +810,19 @@
     :ensure t
     :mode ("\\.js\\'")
     :config
+    (setq js2-basic-offset 2)
     (add-hook 'rjsx-mode-hook
               (lambda()
                 ;; (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
                 ;; (flycheck-select-checker 'javascript-eslint)
                 ))
+    )
+
+  (use-package mode-local
+    :ensure t
+    :config
+    (setq-mode-local rjsx-mode emmet-expand-jsx-className? t)
+    (setq-mode-local web-mode emmet-expand-jsx-className? nil)
     )
 #+END_SRC
 * sbcl
