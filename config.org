@@ -169,17 +169,27 @@
      (custom-set-faces '(spaceline-highlight-face ((t (:background "#a6e22e" :foreground "#3E3D31" :inherit (quote mode-line))))))
      )
  #+END_SRC
+* cnfonts
+#+BEGIN_SRC emacs-lisp
+  (use-package cnfonts
+    :ensure t
+    :config
+    ;; (cnfonts-enable)
+    ;; (setq cnfonts-profiles
+    ;;       '("program" "org-mode"))
+    )
+#+END_SRC
 * smex
 #+BEGIN_SRC emacs-lisp
   ;;
   ;;smex
   ;;
-  (use-package smex
-    :ensure t
-    :init
-    (smex-initialize)
-    :bind (("M-x" . 'smex))
-    )
+  ;; (use-package smex
+  ;;   :ensure t
+  ;;   :init
+  ;;   (smex-initialize)
+  ;;   :bind (("M-x" . 'smex))
+  ;;   )
 #+END_SRC
 * expand-region
 #+BEGIN_SRC emacs-lisp
@@ -272,7 +282,25 @@
   ;;
   (use-package ivy
     :ensure t
+    :diminish (ivy-mode . "")
+    :config
+    (ivy-mode 1)
+    (setq ivy-use-virutal-buffers t)
+    (setq enable-recursive-minibuffers t)
+    (setq ivy-height 10)
+    (setq ivy-initial-inputs-alist nil)
+    (setq ivy-count-format "%d/%d ")
+    (setq ivy-re-builders-alist
+          `((t . ivy--regex-ignore-order)))
     )
+#+END_SRC
+* counsel
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+   :ensure t
+   :bind (("M-x" . counsel-M-x)
+          ("\C-x \C-f" . counsel-find-file))
+  )
 #+END_SRC
 * swiper
 #+BEGIN_SRC emacs-lisp
@@ -280,7 +308,7 @@
     :ensure t
     :config
     ;; (global-unset-key (kbd "s-p"))
-    ;; (global-set-key (kbd "s-p") 'swiper)
+    (global-set-key (kbd "C-s") 'swiper)
     )
 #+END_SRC
 * recentf
@@ -351,13 +379,16 @@
   ;;
   (use-package projectile
     :ensure t
+    :bind-keymap
+    ("\C-c p" . projectile-command-map)
     :config
     (projectile-mode t)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
     (setq projectile-completion-system 'ivy)
     (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" ))
     ;; Find file in project
     (global-set-key (kbd "s-p") 'projectile-find-file)
+    (use-package counsel-projectile
+      :ensure t)
     )
 #+END_SRC
 * prodigy
@@ -391,20 +422,23 @@
   (use-package flycheck
     :ensure t
     :config
-     ;;set eslint
-      (defun my/use-eslint-from-node-modules ()
-        (let* ((root (locate-dominating-file
-                      (or (buffer-file-name) default-directory)
-                      "node_modules"))
-               (eslint (and root
-                            (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                              root))))
-          (when (and eslint (file-executable-p eslint))
-            (setq-local flycheck-javascript-eslint-executable eslint))))
-      (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-      (add-hook 'web-mode-hook #'my/use-eslint-from-node-modules)
-      (add-hook 'go-mode-hook (lambda () (flycheck-mode t)))
-  )
+    (global-flycheck-mode t)
+    ;;set eslint
+    (defun my/use-eslint-from-node-modules ()
+      (let* ((root (locate-dominating-file
+                    (or (buffer-file-name) default-directory)
+                    "node_modules"))
+             (eslint (and root
+                          (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                            root))))
+        (when (and eslint (file-executable-p eslint))
+          (setq-local flycheck-javascript-eslint-executable eslint))))
+  
+    (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+  
+    (with-eval-after-load 'flycheck
+      (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+    )
 #+END_SRC
 * smartparens
 #+BEGIN_SRC emacs-lisp
@@ -489,18 +523,18 @@
     :config
     (global-company-mode t)
     (setq company-idle-delay 0)
-    (setq company-minimum-prefix-length 1)
+    (setq company-minimum-prefix-length 2)
     (with-eval-after-load 'company
       (define-key company-active-map (kbd "C-n") #'company-select-next)
       (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
-    ;; (add-hook 'css-mode-hook (lambda ()
-    ;;                            (add-to-list (make-local-variable 'company-backends) 'company-css)))
+    (add-hook 'css-mode-hook (lambda ()
+                               (add-to-list (make-local-variable 'company-backends)
+                                            '(company-css company-files company-yasnippet company-capf) )))
 
     (add-hook 'emacs-lisp-mode-hook (lambda ()
-                                      (add-to-list (make-local-variable 'company-backends) 'company-elisp)))
-
-  
+                                      (add-to-list (make-local-variable 'company-backends)
+                                                   'company-elisp)))
     )
 #+END_SRC
 * org
@@ -650,75 +684,6 @@
     (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
     )
 #+END_SRC
-* web-mode
-#+BEGIN_SRC emacs-lisp
-  ;;
-  ;;web-mode
-  ;;
-  (use-package web-mode
-         :ensure t
-         :config
-         (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
-         (add-hook 'web-mode-hook
-                   (lambda ()
-                     (set-face-attribute 'web-mode-constant-face nil :weight 'normal)
-                     ;; (yas-activate-extra-mode 'web-mode)
-                     ;; (web-mode-set-content-type "jsx")
-                     (flycheck-mode 1)
-                     ;; disable jshint since we prefer eslint checking
-                     ;; (setq-default flycheck-disabled-checkers
-                     ;;               (append flycheck-disabled-checkers
-                     ;;                       '(javascript-jshint)))
-                     ;; use eslint with web-mode for jsx files
-                     (flycheck-add-mode 'javascript-eslint 'web-mode)
-                     ;; (lsp-vue-enable)
-                     (setq web-mode-style-padding 0)
-                     (setq web-mode-script-padding 0)
-                     ;; (message "now set to: %s" web-mode-content-type)
-                     ))
-         )
-#+END_SRC
-* emmet
-#+BEGIN_SRC emacs-lisp
-;;
-;;emmet
-;;
-(use-package emmet-mode
-  :ensure t
-  :config
-  (setq emmet-indentation 2)
-  (add-hook 'html-mode-hook 'emmet-mode)
-  (add-hook 'css-mode-hook 'emmet-mode)
-  (add-hook 'web-mode-hook 'emmet-mode))
-#+END_SRC
-* js2-mode
-#+BEGIN_SRC emacs-lisp
-  ;;
-  ;;js2-mode
-  ;;
-  (use-package js2-mode
-    :ensure t
-    :config
-    (setq-default js2-allow-rhino-new-expr-initializer nil)
-    (setq-default js2-auto-indent-p nil)
-    (setq-default js2-enter-indents-newline nil)
-    (setq-default js2-global-externs '("module" "require" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON"))
-    (setq-default js2-idle-timer-delay 0.1)
-    (setq-default js2-indent-on-enter-key nil)
-    (setq-default js2-mirror-mode nil)
-    (setq-default js2-strict-inconsistent-return-warning nil)
-    (setq-default js2-auto-indent-p t)
-    (setq-default js2-include-rhino-externs nil)
-    (setq-default js2-include-gears-externs nil)
-    (setq-default js2-concat-multiline-strings 'eol)
-    (setq-default js2-rebind-eol-bol-keys nil)
-
-    ;; Let flycheck handle parse errors
-    (setq-default js2-show-parse-errors nil)
-    (setq-default js2-strict-missing-semi-warning nil)
-    (setq-default js2-strict-trailing-comma-warning nil) ;; jshint does not warn about this now for some reason
-    (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
-#+END_SRC
 * tern
 #+BEGIN_SRC emacs-lisp
 ;;
@@ -749,6 +714,115 @@
                 (add-to-list (make-local-variable 'company-backends)
                              '(company-css company-tern))
                 ))
+    )
+#+END_SRC
+* web-mode
+#+BEGIN_SRC emacs-lisp
+  ;;
+  ;;web-mode
+  ;;
+  (use-package web-mode
+    :ensure t
+    :mode ("\\.vue\\'")
+    :config
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
+    (setq web-mode-attr-indent-offset 2)
+    (setq web-mode-indent-style 2)
+    ;; (setq web-mode-html-offset 2)
+    ;; (setq web-mode-script-offset 2)
+    (setq-default web-mode-comment-formats
+                  '(("javascript" . "//")
+                    ))
+
+    (add-hook 'web-mode-hook
+              (lambda ()
+                (tern-mode t)
+                (set-face-attribute 'web-mode-constant-face nil :weight 'normal)
+                ;; (yas-activate-extra-mode 'web-mode)
+                ;; (web-mode-set-content-type "jsx")
+                ;; (flycheck-mode 1)
+                ;; disable jshint since we prefer eslint checking
+                ;; (setq-default flycheck-disabled-checkers
+                ;;               (append flycheck-disabled-checkers
+                ;;                       '(javascript-jshint)))
+                ;; use eslint with web-mode for jsx files
+                (flycheck-add-mode 'javascript-eslint 'web-mode)
+                ;; (flycheck-select-checker 'javascript-eslint)
+                ;; (lsp-vue-enable)
+                (setq web-mode-style-padding 0)
+                (setq web-mode-script-padding 0)
+                ;; (message "now set to: %s" web-mode-content-type)
+                ))
+    )
+#+END_SRC
+* emmet
+#+BEGIN_SRC emacs-lisp
+  ;;
+  ;;emmet
+  ;;
+  (use-package emmet-mode
+    :ensure t
+    :hook (web-mode css-mode sgml-mode rjsx-mode)
+    :config
+    ;; (setq emmet-indentation 2)
+    (setq css-indent-offset 2)
+    (add-hook 'emmet-mode-hook (lambda()
+                                 (setq emmet-indent-after-insert t)))
+    )
+#+END_SRC
+* js2-mode
+#+BEGIN_SRC emacs-lisp
+  ;;
+  ;;js2-mode
+  ;;
+  (use-package js2-mode
+    :ensure t
+    :config
+    (setq-default indent-tabs-mode nil)
+    (setq js-indent-level 2)
+    (setq-default js2-basic-offset 2)
+  
+    (setq-default js2-allow-rhino-new-expr-initializer nil)
+    (setq-default js2-auto-indent-p nil)
+    (setq-default js2-enter-indents-newline nil)
+    (setq-default js2-global-externs '("module" "require" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON"))
+    (setq-default js2-idle-timer-delay 0.1)
+    (setq-default js2-indent-on-enter-key nil)
+    (setq-default js2-mirror-mode nil)
+    (setq-default js2-strict-inconsistent-return-warning nil)
+    (setq-default js2-auto-indent-p t)
+    (setq-default js2-include-rhino-externs nil)
+    (setq-default js2-include-gears-externs nil)
+    (setq-default js2-concat-multiline-strings 'eol)
+    (setq-default js2-rebind-eol-bol-keys nil)
+
+    ;; Let flycheck handle parse errors
+    (setq-default js2-show-parse-errors nil)
+    (setq-default js2-strict-missing-semi-warning nil)
+    (setq-default js2-strict-trailing-comma-warning nil) ;; jshint does not warn about this now for some reason
+    (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
+#+END_SRC
+* rjsx
+#+BEGIN_SRC emacs-lisp
+  (use-package rjsx-mode
+    :ensure t
+    :mode ("\\.js\\'")
+    :config
+    (setq js2-basic-offset 2)
+    (add-hook 'rjsx-mode-hook
+              (lambda()
+                ;; (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+                ;; (flycheck-select-checker 'javascript-eslint)
+                ))
+    )
+
+  (use-package mode-local
+    :ensure t
+    :config
+    (setq-mode-local rjsx-mode emmet-expand-jsx-className? t)
+    (setq-mode-local web-mode emmet-expand-jsx-className? nil)
     )
 #+END_SRC
 * sbcl
@@ -1024,20 +1098,6 @@
   (use-package dart-mode
     :ensure t)
 
-#+END_SRC
-* cnfonts
-#+BEGIN_SRC emacs-lisp
-  (use-package cnfonts
-    :ensure t
-    :config
-    ;; (cnfonts-enable)
-    ;; (setq cnfonts-profiles
-    ;;       '("program" "org-mode"))
-    )
-#+END_SRC
-* rjsx
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'auto-mode-alist '("app\\/.*\\.js\\'" . rjsx-mode))
 #+END_SRC
 * reveal
 #+BEGIN_SRC emacs-lisp

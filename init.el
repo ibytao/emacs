@@ -81,30 +81,13 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
 ;;tabs
-(setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq tab-width 2)
-(setq lua-indent-level 2)
 ;;setup html indent
 (add-hook 'html-mode-hook
           (lambda ()
-            ;; (emmet-mode t)
             ;; default indentation is usually 2 spaces, changing to 4.
             (set (make-local-variable 'sgml-basic-offset) 2)))
-(setq js-indent-level 2)
-(setq js2-indent-level 2)
-(setq-default js2-basic-offset 2)
-(setq css-indent-offset 2)
-(setq web-mode-markup-indent-offset 2)
-(setq web-mode-css-indent-offset 2)
-(setq web-mode-attr-indent-offset 2)
-(setq web-mode-code-indent-offset 2)
-(setq web-mode-indent-style 2)
-(setq web-mode-html-offset 2)
-(setq web-mode-script-offset 2)
-(setq-default web-mode-comment-formats
-              '(("javascript" . "//")
-                ))
 
 ;;Setup key bindings
 (require 'key-bindings)
