@@ -10,6 +10,14 @@
 
 ;; (setq debug-on-error t)
 
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+(when (memq window-system '(mac ns))
+  (add-to-list 'default-frame-alist '(ns-appearance . 'dark))
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
+
 ;;
 ;; use use-package
 ;;
@@ -42,10 +50,6 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
   )
-
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 ;;Write backup files to own directory
 (setq backup-directory-alist

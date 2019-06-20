@@ -299,6 +299,8 @@
     :bind (("M-x" . counsel-M-x)
            ("\C-x \C-f" . counsel-find-file)
            ("M-y" . counsel-yank-pop))
+    :init
+    (setq counsel-find-file-ignore-regexp "\\.el\\'")
     )
 
   (use-package swiper
@@ -379,10 +381,11 @@
     :bind
     (("C-c p" . projectile-command-map))
     (("C-c f" . projectile-find-file))
+    :init
+    (projectile-mode +1)
     :config
-    (projectile-mode t)
+    (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" "." ".." ))
     (setq projectile-completion-system 'ivy)
-    (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" ))
     (use-package counsel-projectile
       :ensure t)
     )
@@ -1043,99 +1046,99 @@
   #+end_src
 * email
 #+BEGIN_SRC emacs-lisp
-  (when (eq system-type 'darwin)
-    (add-to-list 'load-path "/usr/local/Cellar/mu/1.2.0/share/emacs/site-lisp/mu/mu4e"))
+  ;; (when (eq system-type 'darwin)
+  ;;   (add-to-list 'load-path "/usr/local/Cellar/mu/1.2.0/share/emacs/site-lisp/mu/mu4e"))
 
-  (require 'mu4e)
-  ;; Use mu4e as default mail agent
-  (setq mail-user-agent 'mu4e-user-agent)
-  ;; Mail folder set to ~/Maildir
-  (setq mu4e-maildir "~/Mail/exmail")         ; NOTE: should not be symbolic link
-  ;; Fetch mail by offlineimap
-  ;; (setq mu4e-get-mail-command "offlineimap")
-  (setq mu4e-get-mail-command "mbsync exmail")
-  ;; Fetch mail in 60 sec interval
-  (setq mu4e-update-interval 60)
+  ;; (require 'mu4e)
+  ;; ;; Use mu4e as default mail agent
+  ;; (setq mail-user-agent 'mu4e-user-agent)
+  ;; ;; Mail folder set to ~/Maildir
+  ;; (setq mu4e-maildir "~/Mail/exmail")         ; NOTE: should not be symbolic link
+  ;; ;; Fetch mail by offlineimap
+  ;; ;; (setq mu4e-get-mail-command "offlineimap")
+  ;; (setq mu4e-get-mail-command "mbsync exmail")
+  ;; ;; Fetch mail in 60 sec interval
+  ;; (setq mu4e-update-interval 60)
 
-  ;; folder for sent messages
-  ;; (setq mu4e-sent-folder   "/Outbox")
-  ;; unfinished messages
-  ;; (setq mu4e-drafts-folder "/DraftBox")
-  ;; trashed messages
-  ;; (setq mu4e-trash-folder  "/Trash")
-  ;; saved messages
-  ;; (setq mu4e-trash-folder  "/Archive")
+  ;; ;; folder for sent messages
+  ;; ;; (setq mu4e-sent-folder   "/Outbox")
+  ;; ;; unfinished messages
+  ;; ;; (setq mu4e-drafts-folder "/DraftBox")
+  ;; ;; trashed messages
+  ;; ;; (setq mu4e-trash-folder  "/Trash")
+  ;; ;; saved messages
+  ;; ;; (setq mu4e-trash-folder  "/Archive")
 
-  (setq mu4e-hide-index-messages t)
+  ;; (setq mu4e-hide-index-messages t)
 
-  (require 'mu4e-contrib)
-  (setq mu4e-html2text-command 'mu4e-shr2text)
-  ;; try to emulate some of the eww key-bindings
-  (add-hook 'mu4e-view-mode-hook
-            (lambda ()
-              (local-set-key (kbd "<tab>") 'shr-next-link)
-              (local-set-key (kbd "<backtab>") 'shr-previous-link)))
+  ;; (require 'mu4e-contrib)
+  ;; (setq mu4e-html2text-command 'mu4e-shr2text)
+  ;; ;; try to emulate some of the eww key-bindings
+  ;; (add-hook 'mu4e-view-mode-hook
+  ;;           (lambda ()
+  ;;             (local-set-key (kbd "<tab>") 'shr-next-link)
+  ;;             (local-set-key (kbd "<backtab>") 'shr-previous-link)))
 
-  (setq mu4e-view-show-images t)
+  ;; (setq mu4e-view-show-images t)
 
-  (global-set-key (kbd "C-c m") 'mu4e)
+  ;; (global-set-key (kbd "C-c m") 'mu4e)
 
-  ;; SMTP setup
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-stream-type 'ssl
-        starttls-use-gnutls t)
-  ;; Personal info
-  (setq user-full-name "bangyao, Tao")          ; FIXME: add your info here
-  (setq user-mail-address "taoby@xysl.com"); FIXME: add your info here
-  ;; mail setup
-  (setq smtpmail-smtp-server "smtp.exmail.qq.com")
-  (setq smtpmail-smtp-service 465)
-  (setq smtpmail-smtp-user "taoby@xysl.com") ; FIXME: add your mail addr here
+  ;; ;; SMTP setup
+  ;; (setq message-send-mail-function 'smtpmail-send-it
+  ;;       smtpmail-stream-type 'ssl
+  ;;       starttls-use-gnutls t)
+  ;; ;; Personal info
+  ;; (setq user-full-name "bangyao, Tao")          ; FIXME: add your info here
+  ;; (setq user-mail-address "taoby@xysl.com"); FIXME: add your info here
+  ;; ;; mail setup
+  ;; (setq smtpmail-smtp-server "smtp.exmail.qq.com")
+  ;; (setq smtpmail-smtp-service 465)
+  ;; (setq smtpmail-smtp-user "taoby@xysl.com") ; FIXME: add your mail addr here
 
-  (require 'org-mu4e)
-  (setq org-mu4e-convert-to-html t)
+  ;; (require 'org-mu4e)
+  ;; (setq org-mu4e-convert-to-html t)
 
-  ;; this seems to fix the babel file saving thing
-  (defun org~mu4e-mime-replace-images (str current-file)
-    "Replace images in html files with cid links."
-    (let (html-images)
-      (cons
-       (replace-regexp-in-string ;; replace images in html
-        "src=\"\\([^\"]+\\)\""
-        (lambda (text)
-          (format
-           "src=\"./:%s\""
-           (let* ((url (and (string-match "src=\"\\([^\"]+\\)\"" text)
-                            (match-string 1 text)))
-                  (path (expand-file-name
-                         url (file-name-directory current-file)))
-                  (ext (file-name-extension path))
-                  (id (replace-regexp-in-string "[\/\\\\]" "_" path)))
-             (add-to-list 'html-images
-                          (org~mu4e-mime-file
-                           (concat "image/" ext) path id))
-             id)))
-        str)
-       html-images)))
+  ;; ;; this seems to fix the babel file saving thing
+  ;; (defun org~mu4e-mime-replace-images (str current-file)
+  ;;   "Replace images in html files with cid links."
+  ;;   (let (html-images)
+  ;;     (cons
+  ;;      (replace-regexp-in-string ;; replace images in html
+  ;;       "src=\"\\([^\"]+\\)\""
+  ;;       (lambda (text)
+  ;;         (format
+  ;;          "src=\"./:%s\""
+  ;;          (let* ((url (and (string-match "src=\"\\([^\"]+\\)\"" text)
+  ;;                           (match-string 1 text)))
+  ;;                 (path (expand-file-name
+  ;;                        url (file-name-directory current-file)))
+  ;;                 (ext (file-name-extension path))
+  ;;                 (id (replace-regexp-in-string "[\/\\\\]" "_" path)))
+  ;;            (add-to-list 'html-images
+  ;;                         (org~mu4e-mime-file
+  ;;                          (concat "image/" ext) path id))
+  ;;            id)))
+  ;;       str)
+  ;;      html-images)))
 
 
-  (defun mu4e-compose-org-mail ()
-    (interactive)
-    (mu4e-compose-new)
-    (org-mu4e-compose-org-mode))
+  ;; (defun mu4e-compose-org-mail ()
+  ;;   (interactive)
+  ;;   (mu4e-compose-new)
+  ;;   (org-mu4e-compose-org-mode))
 
-  (use-package mu4e-alert
-    :ensure t
-    :after mu4e
-    :hook ((after-init . mu4e-alert-enable-mode-line-display)
-           (after-init . mu4e-alert-enable-notifications))
-    :config
-    (mu4e-alert-set-default-style 'libnotify)
-    ;; (mu4e-alert-set-default-style 'notifier)
-    )
+  ;; (use-package mu4e-alert
+  ;;   :ensure t
+  ;;   :after mu4e
+  ;;   :hook ((after-init . mu4e-alert-enable-mode-line-display)
+  ;;          (after-init . mu4e-alert-enable-notifications))
+  ;;   :config
+  ;;   (mu4e-alert-set-default-style 'libnotify)
+  ;;   ;; (mu4e-alert-set-default-style 'notifier)
+  ;;   )
 
-  ;;china
-  (setenv "XAPIAN_CJK_NGRAM" "1")
+  ;; ;;china
+  ;; (setenv "XAPIAN_CJK_NGRAM" "1")
 #+END_SRC
 * restclient
 #+BEGIN_SRC emacs-lisp
