@@ -14,9 +14,9 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-(when (memq window-system '(mac ns))
-  (add-to-list 'default-frame-alist '(ns-appearance . 'dark))
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
+;; (when (memq window-system '(mac ns))
+;;   (add-to-list 'default-frame-alist '(ns-appearance . 'dark))
+;;   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
 
 ;;
 ;; use use-package

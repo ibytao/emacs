@@ -308,6 +308,7 @@
     :config
     ;; (global-unset-key (kbd "s-p"))
     (global-set-key (kbd "C-s") 'swiper)
+    (global-set-key (kbd "C-r") 'swiper)
     )
 #+END_SRC
 * recentf
