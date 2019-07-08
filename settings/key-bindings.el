@@ -165,4 +165,11 @@
 (global-set-key (kbd "C-;") 'marker-visit-next)
 (global-set-key (kbd "C-:") 'marker-visit-prev)
 
+;; c-h to delete
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "C-h") 'paredit-backward-delete)
+(global-set-key (kbd "M-h") 'backward-kill-word)
+(global-set-key (kbd "<f1>") 'help-command)
+(define-key isearch-mode-map "\C-h" 'isearch-delete-char)
+
 (provide 'key-bindings)

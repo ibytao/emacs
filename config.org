@@ -147,16 +147,19 @@
      (spaceline-toggle-all-the-icons-multiple-cursors)
      (spaceline-toggle-all-the-icons-bookmark)
 
+     (spaceline-toggle-all-the-icons-fullscreen)
+     (spaceline-toggle-all-the-icons-buffer-position)
+     (spaceline-toggle-all-the-icons-hud-on)
+     (spaceline-toggle-global-on)
+
      (setq spaceline-all-the-icons-flycheck-alternate t)
      ;;(setq spaceline-all-the-icons-icon-set-modified 'toggle)
      ;; 'slant, 'arrow, 'cup, 'wave, 'none
      (setq spaceline-all-the-icons-separator-type 'cup)
      (setq spaceline-all-the-icons-slim-render t)
 
-     (spaceline-toggle-all-the-icons-fullscreen)
-     (spaceline-toggle-all-the-icons-buffer-position)
-     (spaceline-toggle-all-the-icons-hud-on)
-     (spaceline-toggle-global-on)
+     ;; (setq spaceline-all-the-icons-separator-scale 2.0)
+     ;; (setq powerline-text-scale-factor 0.9)
 
      ;; (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
      ;; (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
@@ -509,7 +512,7 @@
     :config
     (guide-key-mode 1)
     (setq guide-key/idle-delay 0.5)
-    (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-c RET" "C-c"))
+    (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-c RET" "C-c" "C-x x"))
     (setq guide-key/recursive-key-sequence-flag t)
     (setq guide-key/popup-window-position 'bottom)
     )
