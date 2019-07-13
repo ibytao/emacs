@@ -287,6 +287,8 @@
   (use-package ivy
     :ensure t
     :diminish (ivy-mode . "")
+    :bind (:map ivy-minibuffer-map
+                ("<return>" . ivy-alt-done))
     :config
     ;; (ivy-mode 1)
     ;; (setq enable-recursive-minibuffers t)
@@ -303,7 +305,7 @@
            ("\C-x \C-f" . counsel-find-file)
            ("M-y" . counsel-yank-pop))
     :init
-    (setq counsel-find-file-ignore-regexp "\\.el\\'")
+    (setq counsel-find-file-ignore-regexp "\\.git\\/")
     )
 
   (use-package swiper

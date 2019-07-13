@@ -48,16 +48,6 @@
  ("C-c `"  . wrap-with-back-quotes))
 
 
-;; (bind-keys
-;;  :map prog-mode-map
-;;  ;; :filter (org-at-item-p)
-;;  ;; Clever newlines
-;;  ("C-o" . open-line-and-indent)
-;;  ("<C-return>" . open-line-below)
-;;  ("<C-S-return>" . open-line-above)
-;;  ("<M-return>" . new-line-dwim)
-;;  )
-
 ;; Clever newlines
 (global-set-key (kbd "C-o") 'open-line-and-indent)
 (global-set-key (kbd "<C-return>") 'open-line-below)
@@ -108,7 +98,7 @@
 
 (global-unset-key (kbd "s-n"))
 (global-set-key (kbd "s-n") 'next-buffer)
-(global-set-key (kbd "s-b") 'previous-buffer)
+(global-set-key (kbd "s-p") 'previous-buffer)
 
 (defun prev-window ()
   (interactive)
@@ -162,14 +152,24 @@
 (global-set-key (kbd "s-2") 'split-window-below)
 (global-set-key (kbd "s-3") 'split-window-horizontally)
 
-(global-set-key (kbd "C-;") 'marker-visit-next)
-(global-set-key (kbd "C-:") 'marker-visit-prev)
+(global-set-key (kbd "C-;") 'marker-visit-prev)
+(global-set-key (kbd "C-:") 'marker-visit-next)
 
 ;; c-h to delete
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "C-h") 'paredit-backward-delete)
-(global-set-key (kbd "M-h") 'backward-kill-word)
+;; (global-set-key (kbd "C-h") 'delete-backward-char)
+;; (global-set-key (kbd "C-h") 'paredit-backward-delete)
+;; (global-set-key (kbd "M-h") 'backward-kill-word)
+;; (global-set-key (kbd "<f1>") 'help-command)
+
+;; Use shell-like backspace C-h, rebind help to F1
+(define-key key-translation-map [?\C-h] [?\C-?])
 (global-set-key (kbd "<f1>") 'help-command)
+
 (define-key isearch-mode-map "\C-h" 'isearch-delete-char)
+
+;; Window switching
+(windmove-default-keybindings) ;; Shift+direction
+(global-set-key (kbd "C-x -") 'toggle-window-split)
+(global-set-key (kbd "C-x C--") 'rotate-windows)
 
 (provide 'key-bindings)
