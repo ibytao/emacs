@@ -204,8 +204,12 @@
     :bind
     (("C-=" . 'er/expand-region))
     (("C-+" . 'er/contract-region))
+    ;; (("C-'" . 'er/expand-region))
+    ;; (("C-\"" . 'er/contract-region))
     :config
     (pending-delete-mode t)
+    (global-set-key (kbd "C-@") 'er/expand-region)
+    (global-set-key (kbd "C-M-@") 'er/contract-region)
     )
 #+END_SRC
 * change-inner
@@ -387,10 +391,12 @@
     :bind
     (("C-c p" . projectile-command-map))
     (("C-c f" . projectile-find-file))
+    (("C-x o" . projectile-switch-project))
+    (("C-," . projectile-find-file))
     :init
     (projectile-mode +1)
     :config
-    (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" "." ".." ))
+    (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" "." ".." ".git"))
     (setq projectile-completion-system 'ivy)
     (use-package counsel-projectile
       :ensure t)
@@ -772,6 +778,7 @@
     :hook (web-mode css-mode sgml-mode rjsx-mode)
     :config
     ;; (setq emmet-indentation 2)
+    (unbind-key "<C-return>" emmet-mode-keymap)
     (setq css-indent-offset 2)
     (add-hook 'emmet-mode-hook (lambda()
                                  (setq emmet-indent-after-insert t)))
@@ -869,6 +876,8 @@
     (setq flycheck-check-syntax-automatically '(save mode-enabled))
     (eldoc-mode +1)
     (tide-hl-identifier-mode +1)
+    (define-key tide-mode-map (kbd "s-.") 'tide-references)
+    (define-key tide-references-mode-map (kbd "v") 'tide-goto-reference)
     ;; company is an optional dependency. You have to
     ;; install it separately via package-install
     ;; `M-x package-install [ret] company`

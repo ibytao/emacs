@@ -138,6 +138,11 @@
 ;; Display and edit occurances of regexp in buffer
 (global-set-key (kbd "C-c o") 'occur)
 
+;; View occurrence in occur mode
+(define-key occur-mode-map (kbd "v") 'occur-mode-display-occurrence)
+(define-key occur-mode-map (kbd "n") 'next-line)
+(define-key occur-mode-map (kbd "p") 'previous-line)
+
 ;; Jump from file to containing directory
 (global-set-key (kbd "C-x C-j") 'dired-jump) (autoload 'dired-jump "dired")
 (global-set-key (kbd "C-x M-j") '(λ (dired-jump 1)))
@@ -148,6 +153,10 @@
 ;; (global-set-key (kbd "C-z") 'shell)
 (global-set-key (kbd "C-x M-z") 'suspend-frame)
 
+;; Window switching
+(windmove-default-keybindings) ;; Shift+direction
+(global-set-key (kbd "C-x -") 'toggle-window-split)
+(global-set-key (kbd "C-x C--") 'rotate-windows)
 (global-set-key (kbd "s-1") 'delete-other-windows)
 (global-set-key (kbd "s-2") 'split-window-below)
 (global-set-key (kbd "s-3") 'split-window-horizontally)
@@ -165,11 +174,7 @@
 (define-key key-translation-map [?\C-h] [?\C-?])
 (global-set-key (kbd "<f1>") 'help-command)
 
-(define-key isearch-mode-map "\C-h" 'isearch-delete-char)
-
-;; Window switching
-(windmove-default-keybindings) ;; Shift+direction
-(global-set-key (kbd "C-x -") 'toggle-window-split)
-(global-set-key (kbd "C-x C--") 'rotate-windows)
+;; (define-key isearch-mode-map "\C-h" 'isearch-delete-char)
+(global-set-key (kbd "s-b") 'ido-switch-buffer)
 
 (provide 'key-bindings)
