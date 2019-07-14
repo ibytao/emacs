@@ -1161,10 +1161,35 @@
   (use-package restclient
     :ensure t)
 #+END_SRC
-* dart
+* dart&flutter
 #+BEGIN_SRC emacs-lisp
-  (use-package dart-mode
+  ;; (use-package dart-mode
+  ;;   :ensure t)
+
+  (use-package use-package-ensure-system-package
     :ensure t)
+
+  (use-package flutter
+    :ensure t
+    :after dart-mode
+    :bind (:map dart-mode-map
+                ("C-M-x" . #'flutter-run-or-hot-reload))
+    :custom
+    (flutter-sdk-path "~/Android/flutter/"))
+
+  (use-package lsp-mode
+    :ensure t
+    :commands lsp)
+
+  (use-package dart-mode
+    :ensure t
+    :hook (dart-mode . lsp)
+    :after lsp
+    :ensure-system-package (dart_language_server . "pub global activate dart_language_server")
+    :custom
+    (dart-format-on-save t)
+    (dart-sdk-path "~/Android/flutter/bin/cache/dart-sdk/")
+    )
 
 #+END_SRC
 * reveal
