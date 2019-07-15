@@ -173,6 +173,9 @@
 (setq delete-by-moving-to-trash t
       trash-directory "~/.Trash/emacs")
 
+;; delete traniling whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; Load the config
 (org-babel-load-file (concat user-emacs-directory "config.org"))
 
