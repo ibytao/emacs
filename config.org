@@ -204,8 +204,12 @@
     :bind
     (("C-=" . 'er/expand-region))
     (("C-+" . 'er/contract-region))
+    ;; (("C-'" . 'er/expand-region))
+    ;; (("C-\"" . 'er/contract-region))
     :config
     (pending-delete-mode t)
+    (global-set-key (kbd "C-@") 'er/expand-region)
+    (global-set-key (kbd "C-M-@") 'er/contract-region)
     )
 #+END_SRC
 * change-inner
@@ -287,6 +291,8 @@
   (use-package ivy
     :ensure t
     :diminish (ivy-mode . "")
+    :bind (:map ivy-minibuffer-map
+                ("<return>" . ivy-alt-done))
     :config
     ;; (ivy-mode 1)
     ;; (setq enable-recursive-minibuffers t)
@@ -303,7 +309,7 @@
            ("\C-x \C-f" . counsel-find-file)
            ("M-y" . counsel-yank-pop))
     :init
-    (setq counsel-find-file-ignore-regexp "\\.el\\'")
+    (setq counsel-find-file-ignore-regexp "\\.git\\/")
     )
 
   (use-package swiper
@@ -385,10 +391,12 @@
     :bind
     (("C-c p" . projectile-command-map))
     (("C-c f" . projectile-find-file))
+    (("C-x o" . projectile-switch-project))
+    (("C-," . projectile-find-file))
     :init
     (projectile-mode +1)
     :config
-    (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" "." ".." ))
+    (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" "." ".." ".git"))
     (setq projectile-completion-system 'ivy)
     (use-package counsel-projectile
       :ensure t)
@@ -770,6 +778,7 @@
     :hook (web-mode css-mode sgml-mode rjsx-mode)
     :config
     ;; (setq emmet-indentation 2)
+    (unbind-key "<C-return>" emmet-mode-keymap)
     (setq css-indent-offset 2)
     (add-hook 'emmet-mode-hook (lambda()
                                  (setq emmet-indent-after-insert t)))
@@ -867,6 +876,8 @@
     (setq flycheck-check-syntax-automatically '(save mode-enabled))
     (eldoc-mode +1)
     (tide-hl-identifier-mode +1)
+    (define-key tide-mode-map (kbd "s-.") 'tide-references)
+    (define-key tide-references-mode-map (kbd "v") 'tide-goto-reference)
     ;; company is an optional dependency. You have to
     ;; install it separately via package-install
     ;; `M-x package-install [ret] company`
@@ -1150,10 +1161,35 @@
   (use-package restclient
     :ensure t)
 #+END_SRC
-* dart
+* dart&flutter
 #+BEGIN_SRC emacs-lisp
-  (use-package dart-mode
+  ;; (use-package dart-mode
+  ;;   :ensure t)
+
+  (use-package use-package-ensure-system-package
     :ensure t)
+
+  (use-package flutter
+    :ensure t
+    :after dart-mode
+    :bind (:map dart-mode-map
+                ("C-M-x" . #'flutter-run-or-hot-reload))
+    :custom
+    (flutter-sdk-path "~/Android/flutter/"))
+
+  (use-package lsp-mode
+    :ensure t
+    :commands lsp)
+
+  (use-package dart-mode
+    :ensure t
+    :hook (dart-mode . lsp)
+    :after lsp
+    :ensure-system-package (dart_language_server . "pub global activate dart_language_server")
+    :custom
+    (dart-format-on-save t)
+    (dart-sdk-path "~/Android/flutter/bin/cache/dart-sdk/")
+    )
 
 #+END_SRC
 * reveal
