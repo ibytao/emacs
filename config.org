@@ -271,7 +271,7 @@
     :ensure t
     :init
     ;; you can select the key you prefer to
-    (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)  
+    (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
     )
 #+END_SRC
 * ace-isearch
@@ -795,7 +795,7 @@
     (setq-default indent-tabs-mode nil)
     (setq js-indent-level 2)
     (setq-default js2-basic-offset 2)
-  
+
     (setq-default js2-allow-rhino-new-expr-initializer nil)
     (setq-default js2-auto-indent-p nil)
     (setq-default js2-enter-indents-newline nil)
@@ -1175,7 +1175,7 @@
     :bind (:map dart-mode-map
                 ("C-M-x" . #'flutter-run-or-hot-reload))
     :custom
-    (flutter-sdk-path "~/Android/flutter/"))
+    (flutter-sdk-path "~/SDK/flutter/"))
 
   (use-package lsp-mode
     :ensure t
@@ -1188,9 +1188,8 @@
     :ensure-system-package (dart_language_server . "pub global activate dart_language_server")
     :custom
     (dart-format-on-save t)
-    (dart-sdk-path "~/Android/flutter/bin/cache/dart-sdk/")
+    (dart-sdk-path "~/SDK/flutter/bin/cache/dart-sdk/")
     )
-
 #+END_SRC
 * reveal
 #+BEGIN_SRC emacs-lisp
