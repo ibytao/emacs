@@ -202,14 +202,15 @@
   (use-package expand-region
     :ensure t
     :bind
-    (("C-=" . 'er/expand-region))
-    (("C-+" . 'er/contract-region))
-    ;; (("C-'" . 'er/expand-region))
-    ;; (("C-\"" . 'er/contract-region))
+    (("C-=" . 'er/expand-region)
+     ("C-+" . 'er/contract-region)
+     ("C-@" . 'er/expand-region)
+     ("C-M-@" . 'er/contract-region))
     :config
     (pending-delete-mode t)
-    (global-set-key (kbd "C-@") 'er/expand-region)
-    (global-set-key (kbd "C-M-@") 'er/contract-region)
+
+    (define-key input-decode-map [?\C-m] [C-m])
+    (global-set-key (kbd "<C-m>") #'er/expand-region)
     )
 #+END_SRC
 * change-inner
@@ -230,20 +231,16 @@
   ;;
   (use-package multiple-cursors
     :ensure t
-    :bind (
-           ;; ("M-3" . mc/mark-next-like-this)
-           ;; ("M-4" . mc/mark-previous-like-this)
-           ("C-c ;" . mc/mark-all-dwim)
-           )
+    :bind (("C-c m" . mc/mark-all-dwim)
+           ("C->" . 'mc/mark-next-like-this)
+           ("C-M->" . 'mc/skip-to-next-like-this)
+           ("C-<" . 'mc/mark-previous-like-this)
+           ("C-M-<" . 'mc/skip-to-previous-like-this)
+           ("C-c C-<" . 'mc/mark-all-like-this))
     :init
     (global-unset-key (kbd "M-<down-mouse-1>"))
     (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
     ;; (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
-    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-    (global-set-key (kbd "C-M->") 'mc/skip-to-next-like-this)
-    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-    (global-set-key (kbd "C-M-<") 'mc/skip-to-previous-like-this)
-    (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
     )
 #+END_SRC
 * iy-go-to-char
@@ -392,7 +389,7 @@
     (("C-c p" . projectile-command-map))
     (("C-c f" . projectile-find-file))
     (("C-x o" . projectile-switch-project))
-    (("C-," . projectile-find-file))
+    (("C-o" . projectile-find-file))
     :init
     (projectile-mode +1)
     :config
