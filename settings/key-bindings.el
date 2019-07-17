@@ -56,7 +56,7 @@
 (global-set-key (kbd "<M-return>") 'new-line-dwim)
 
 (defun my-org-hook ()
-  (define-key org-mode-map (kbd "C-o") 'org-open-line)
+  (define-key org-mode-map (kbd "<C-i>") 'org-open-line)
   (define-key org-mode-map (kbd "<C-return>") 'org-insert-heading-respect-content)
   (define-key org-mode-map (kbd "<C-S-return>") 'org-insert-todo-heading-respect-content)
   (define-key org-mode-map (kbd "<M-return>") 'org-meta-return)
