@@ -113,6 +113,8 @@
 (global-set-key (kbd "C-S-k") 'kill-and-retry-line)
 (global-set-key (kbd "C-w") 'kill-region-or-backward-word)
 (global-set-key (kbd "C-S-w") 'kill-to-beginning-of-line)
+(global-unset-key (kbd "C-u"))
+(global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
 
 ;; Line movement
 (defun move-line-up ()

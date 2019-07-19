@@ -533,6 +533,7 @@
     (global-company-mode t)
     (setq company-idle-delay 0)
     (setq company-minimum-prefix-length 2)
+    (setq company-show-numbers t)
     (with-eval-after-load 'company
       (define-key company-active-map (kbd "C-n") #'company-select-next)
       (define-key company-active-map (kbd "C-p") #'company-select-previous))
@@ -545,6 +546,11 @@
                                       (add-to-list (make-local-variable 'company-backends)
                                                    'company-elisp)))
     )
+
+  (use-package company-tabnine
+    :ensure t
+    :config
+    (add-to-list 'company-backends #'company-tabnine))
 #+END_SRC
 * org
 #+BEGIN_SRC emacs-lisp
@@ -558,6 +564,8 @@
   ;;         ("DONE" . (:foreground "green" :weight bold))
   ;;         ("IMPEDED" . (:foreground "red" :weight bold))
   ;;         ))
+
+  (require 'org-tempo)
 
   (setq org-todo-keywords '((sequence "☛ TODO(t)" "|" "✔ DONE(d)")
                             (sequence "⚑ WAITING(w)" "|")
