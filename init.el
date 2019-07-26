@@ -85,8 +85,8 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
 ;;tabs
-(setq-default tab-width 2)
-(setq tab-width 2)
+;; (setq-default tab-width 2)
+;; (setq tab-width 2)
 ;;setup html indent
 (add-hook 'html-mode-hook
           (lambda ()

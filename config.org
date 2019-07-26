@@ -403,6 +403,8 @@
 #+BEGIN_SRC emacs-lisp
   (use-package prodigy
     :ensure t
+    :bind
+    (("C-c s" . prodigy))
     :config
     (prodigy-define-service
       :name "jiedianqian-statics"
@@ -461,6 +463,8 @@
     (add-hook 'clojure-mode-hook (lambda () (smartparens-mode -1)))
     (add-hook 'emacs-lisp-mode-hook (lambda () (smartparens-mode -1)))
     (add-hook 'cider-repl-mode-hook (lambda () (smartparens-mode -1)))
+    (add-hook 'js2-mode-hook (lambda () (smartparens-mode -1)))
+    (add-hook 'web-mode-hook (lambda () (smartparens-mode -1)))
     )
 #+END_SRC
 * paredit
@@ -471,6 +475,8 @@
     (add-hook 'clojure-mode-hook 'paredit-mode)
     (add-hook 'cider-repl-mode-hook 'paredit-mode)
     (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+    (add-hook 'js2-mode-hook 'paredit-mode)
+    (add-hook 'web-mode-hook 'paredit-mode)
     ;; Enable `paredit-mode' in the minibuffer, during `eval-expression'.
     ;; (defun conditionally-enable-paredit-mode
     ;;   (if (eq this-command 'eval-expression)
@@ -1174,14 +1180,6 @@
   (use-package use-package-ensure-system-package
     :ensure t)
 
-  (use-package flutter
-    :ensure t
-    :after dart-mode
-    :bind (:map dart-mode-map
-                ("C-M-x" . #'flutter-run-or-hot-reload))
-    :custom
-    (flutter-sdk-path "~/SDK/flutter/"))
-
   (use-package lsp-mode
     :ensure t
     :commands lsp)
@@ -1193,7 +1191,21 @@
     :ensure-system-package (dart_language_server . "pub global activate dart_language_server")
     :custom
     (dart-format-on-save t)
-    (dart-sdk-path "~/SDK/flutter/bin/cache/dart-sdk/")
+    (setq dart-sdk-path "~/SDK/flutter/bin/cache/dart-sdk/")
+    )
+
+  (use-package flutter
+    :ensure t
+    :after dart-mode
+    :bind (:map dart-mode-map
+                ("C-M-x" . #'flutter-run-or-hot-reload))
+    :custom
+    (flutter-sdk-path "~/SDK/flutter/"))
+
+  (use-package company-lsp
+    :ensure t
+    :config
+    (push 'company-lsp company-backends)
     )
 #+END_SRC
 * reveal
