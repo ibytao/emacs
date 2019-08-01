@@ -1003,32 +1003,37 @@
 #+END_SRC
 * python
   #+begin_src emacs-lisp
-    (setq python-shell-completion-native-enable nil)
-    ;; (use-package company-jedi
-    ;;   :ensure t
-    ;;   :config
-    ;;   (add-hook 'python-mode-hook 'jedi:setup)
-    ;;   (add-hook 'python-mode-hook (lambda ()
-    ;;                                 (add-to-list 'company-backends 'company-jedi)))
-    ;;   )
+    ;; (setq python-shell-completion-native-enable nil)
 
-    (use-package elpy
-      :commands (elpy-enable)
+    (use-package exec-path-from-shell
+      :ensure t
       :config
-      (setq elpy-rpc-backend "jedi")
-      ;; For elpy
-      ;; (setq elpy-rpc-python-command "python3")
-      ;; For interactive shell
-      ;; (setq python-shell-interpreter "python3")
-      ;; (add-hook 'python-mode-hook
-      ;;           (lambda ()
-      ;;             (smartparens-mode t)
-      ;;             (use-package pyvenv
-      ;;               :config
-      ;;               (pyvenv-activate "~/projects/virtual-env/"))
-      ;;             ))
+      (when (memq window-system '(mac ns x))
+        (exec-path-from-shell-initialize)))
+
+    (use-package company-jedi
+      :ensure t
+      :config
+      (add-hook 'python-mode-hook 'jedi:setup)
+      (add-hook 'python-mode-hook (lambda ()
+                                    (add-to-list 'company-backends 'company-jedi)))
+      (setq jedi:complete-on-dot t)
+      (setq jedi:use-shortcuts t)
       )
 
+    (use-package elpy
+      :ensure t
+      :init
+      (elpy-enable)
+      :config
+      (setq elpy-rpc-backend "jedi")
+      )
+
+    (use-package auto-virtualenv
+      :ensure t
+      :config
+      (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
+      )
   #+end_src
 * php
   #+begin_src emacs-lisp
