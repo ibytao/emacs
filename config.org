@@ -1183,11 +1183,15 @@
 
   (use-package lsp-mode
     :ensure t
-    :commands lsp)
+    :hook (dart-mode . lsp)
+    :commands lsp
+    :config
+    (setq lsp-enable-completion-at-point t)
+    (add-hook 'lsp-mode-hook (lambda ()
+                               (flycheck-mode 0))))
 
   (use-package dart-mode
     :ensure t
-    :hook (dart-mode . lsp)
     :after lsp
     :ensure-system-package (dart_language_server . "pub global activate dart_language_server")
     :custom
@@ -1206,7 +1210,8 @@
   (use-package company-lsp
     :ensure t
     :config
-    (push 'company-lsp company-backends)
+    ;; (add-hook 'dart-mode-hook (lambda ()
+    ;;                             (push 'company-lsp company-backends)))
     )
 #+END_SRC
 * reveal
@@ -1232,6 +1237,8 @@
     (add-hook 'go-mode-hook (lambda ()
                               (global-unset-key (kbd "S-m"))
                               (define-key go-mode-map (kbd "M-.") 'godef-jump)
+                              (setq indent-tabs-mode 1)
+                              (setq tab-width 2)
                               ))
     (setq gofmt-command "goimports")
 
