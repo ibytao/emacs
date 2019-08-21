@@ -20,3 +20,4 @@ transient
 irony
 /.mc-lists.el
 .python-environments
+.lsp-session-*

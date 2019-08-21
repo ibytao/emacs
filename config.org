@@ -1175,9 +1175,6 @@
 #+END_SRC
 * dart&flutter
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package dart-mode
-  ;;   :ensure t)
-
   (use-package use-package-ensure-system-package
     :ensure t)
 
