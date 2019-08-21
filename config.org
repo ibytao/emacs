@@ -389,7 +389,7 @@
     (("C-c p" . projectile-command-map))
     (("C-c f" . projectile-find-file))
     (("C-x o" . projectile-switch-project))
-    (("C-o" . projectile-find-file))
+    (("<C-i>" . projectile-find-file))
     :init
     (projectile-mode +1)
     :config
@@ -534,7 +534,7 @@
     :config
     (global-company-mode t)
     (setq company-idle-delay 0)
-    (setq company-minimum-prefix-length 2)
+    (setq company-minimum-prefix-length 1)
     (setq company-show-numbers t)
     (with-eval-after-load 'company
       (define-key company-active-map (kbd "C-n") #'company-select-next)
