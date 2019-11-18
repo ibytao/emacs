@@ -194,3 +194,7 @@
 
 ;; (add-hook 'buffer-list-update-hook 'highlight-selected-window)
 (put 'upcase-region 'disabled nil)
+
+(defadvice split-window (after move-point-to-new-window activate)
+  "Moves the point to the newly created window after splitting."
+  (other-window 1))
