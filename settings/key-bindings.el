@@ -151,8 +151,10 @@
 (global-set-key (kbd "C-x -") 'toggle-window-split)
 (global-set-key (kbd "C-x C--") 'rotate-windows)
 (global-set-key (kbd "s-1") 'delete-other-windows)
-(global-set-key (kbd "s-2") 'split-window-below)
-(global-set-key (kbd "s-3") 'split-window-horizontally)
+;; (global-set-key (kbd "s-2") 'split-window-below)
+;; (global-set-key (kbd "s-3") 'split-window-horizontally)
+(global-set-key (kbd "s-2") (lambda () (interactive)(split-window-vertically) (other-window 1)))
+(global-set-key (kbd "s-3") (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
 (global-set-key (kbd "C-;") 'marker-visit-prev)
 (global-set-key (kbd "C-:") 'marker-visit-next)
