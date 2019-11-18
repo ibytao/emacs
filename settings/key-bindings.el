@@ -43,6 +43,7 @@
 (global-set-key (kbd "<C-return>") 'open-line-below)
 (global-set-key (kbd "<C-S-return>") 'open-line-above)
 (global-set-key (kbd "<M-return>") 'new-line-dwim)
+(global-set-key (kbd "<S-return>") 'new-line-dwim)
 
 (defun my-org-hook ()
   (define-key org-mode-map (kbd "<C-o>") 'org-open-line)

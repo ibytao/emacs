@@ -182,6 +182,11 @@
     ;;       '("program" "org-mode"))
     )
 #+END_SRC
+* ranger
+  #+begin_src emacs-lisp
+    (use-package ranger
+      :ensure t)
+  #+end_src
 * smex
 #+BEGIN_SRC emacs-lisp
   ;;
