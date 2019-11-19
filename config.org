@@ -991,6 +991,7 @@
                 (lambda ()
                   (setq c-basic-offset 2)
                   ;; (gradle-mode 1)
+                  (flycheck-mode -1)
                   (google-set-c-style)
                   (google-make-newline-indent)
                   (meghanada-mode t)
