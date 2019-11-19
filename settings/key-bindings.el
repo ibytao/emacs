@@ -105,6 +105,7 @@
 (global-set-key (kbd "C-S-w") 'kill-to-beginning-of-line)
 (global-unset-key (kbd "C-u"))
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
+(global-set-key (kbd "s-k") 'kill-buffer-and-window)
 
 ;; Line movement
 (defun move-line-up ()
