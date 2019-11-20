@@ -545,19 +545,18 @@
       (define-key company-active-map (kbd "C-n") #'company-select-next)
       (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
-    ;; (add-hook 'css-mode-hook (lambda ()
-    ;;                            (add-to-list (make-local-variable 'company-backends)
-    ;;                                         'company-css )))
-
-    (add-hook 'emacs-lisp-mode-hook (lambda ()
-                                      (add-to-list (make-local-variable 'company-backends)
-                                                   'company-elisp)))
+    (add-hook 'emacs-lisp-mode-hook
+              (lambda ()
+                (add-to-list (make-local-variable 'company-backends)
+                             '(company-tabnine company-elisp))
+                ))
     )
 
   (use-package company-tabnine
     :ensure t
     :config
-    (add-to-list 'company-backends #'company-tabnine))
+    ;; (add-to-list 'company-backends #'company-tabnine)
+    )
 #+END_SRC
 * org
 #+BEGIN_SRC emacs-lisp
@@ -760,7 +759,7 @@
     (add-hook 'web-mode-hook
               (lambda ()
                 (add-to-list (make-local-variable 'company-backends)
-                             '(company-css company-tide company-web-html company-files))
+                             '(company-tabnine company-tide company-css company-web-html company-files))
 
                 (set-face-attribute 'web-mode-constant-face nil :weight 'normal)
                 ;; (yas-activate-extra-mode 'web-mode)
@@ -893,17 +892,14 @@
     ;; company is an optional dependency. You have to
     ;; install it separately via package-install
     ;; `M-x package-install [ret] company`
-    (company-mode +1))
-
-    (add-hook 'js-mode-hook
-              (lambda ()
-                (add-to-list (make-local-variable 'company-backends)
-                             'company-tide)))
+    (company-mode +1)
+    (add-to-list 'company-backends '(company-tabnine company-tide))
+    )
 
   (add-hook 'js2-mode-hook #'setup-tide-mode)
   (add-hook 'rjsx-mode-hook #'setup-tide-mode)
   (add-hook 'typescript-mode-hook #'setup-tide-mode)
-  (add-hook 'web-mode-hook #'setup-tide-mode)
+  ;; (add-hook 'web-mode-hook #'setup-tide-mode)
 #+END_SRC
 * sbcl
   #+begin_src emacs-lisp
@@ -998,7 +994,7 @@
                   (rainbow-delimiters-mode t)
                   (highlight-symbol-mode t)
                   (eval-after-load 'company
-                    '(add-to-list 'company-backends '(company-meghanada)))
+                    '(add-to-list 'company-backends '(company-tabnine company-meghanada)))
                   (add-hook 'before-save-hook 'meghanada-code-beautify-before-save))))
   #+END_SRC
 * groovy
@@ -1022,7 +1018,7 @@
       :config
       (add-hook 'python-mode-hook 'jedi:setup)
       (add-hook 'python-mode-hook (lambda ()
-                                    (add-to-list 'company-backends 'company-jedi)))
+                                    (add-to-list 'company-backends '(company-tabnine company-jedi))))
       (setq jedi:complete-on-dot t)
       (setq jedi:use-shortcuts t)
       )
@@ -1062,7 +1058,7 @@
                    (company-mode t)
                    (ac-php-core-eldoc-setup) ;; enable eldoc
                    (make-local-variable 'company-backends)
-                   (add-to-list 'company-backends 'company-ac-php-backend)))
+                   (add-to-list 'company-backends '(company-tabnine company-ac-php-backend))))
       (setq php-file-patterns nil)
       ;; (add-to-list 'auto-mode-alist '("[^.][^t][^p][^l]\\.php$" . php-mode))
       (add-to-list 'auto-mode-alist '("\\.tpl.php$" . html-mode))
@@ -1250,7 +1246,8 @@
       :config
       (add-hook 'go-mode-hook (lambda()
                                 (add-to-list (make-local-variable 'company-backends)
-                                             '(company-go company-files company-yasnippet company-capf))))
+                                             '(company-tabnine company-go company-files company-yasnippet company-capf))
+                                ))
       )
 
     (use-package go-eldoc
