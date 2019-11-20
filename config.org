@@ -161,7 +161,7 @@
      (setq spaceline-all-the-icons-flycheck-alternate t)
      ;;(setq spaceline-all-the-icons-icon-set-modified 'toggle)
      ;; 'slant, 'arrow, 'cup, 'wave, 'none
-     (setq spaceline-all-the-icons-separator-type 'slant)
+     (setq spaceline-all-the-icons-separator-type 'cup)
      (setq spaceline-all-the-icons-slim-render t)
 
      ;; (setq spaceline-all-the-icons-separator-scale 2.0)
