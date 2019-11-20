@@ -38,7 +38,7 @@
  )
 
 ;; Clever newlines
-(define-key input-decode-map "\C-i" [C-i])
+;; (define-key input-decode-map "\C-i" [C-i])
 (global-set-key (kbd "<C-o>") 'open-line-and-indent)
 (global-set-key (kbd "<C-return>") 'open-line-below)
 (global-set-key (kbd "<C-S-return>") 'open-line-above)
@@ -105,7 +105,6 @@
 (global-set-key (kbd "C-S-w") 'kill-to-beginning-of-line)
 (global-unset-key (kbd "C-u"))
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
-(global-set-key (kbd "s-k") 'kill-buffer-and-window)
 
 ;; Line movement
 (defun move-line-up ()
@@ -151,6 +150,7 @@
 (windmove-default-keybindings) ;; Shift+direction
 (global-set-key (kbd "C-x -") 'toggle-window-split)
 (global-set-key (kbd "C-x C--") 'rotate-windows)
+(global-set-key (kbd "s-0") 'kill-buffer-and-window)
 (global-set-key (kbd "s-1") 'delete-other-windows)
 ;; (global-set-key (kbd "s-2") 'split-window-below)
 ;; (global-set-key (kbd "s-3") 'split-window-horizontally)

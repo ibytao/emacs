@@ -34,6 +34,12 @@
 
     (setq x-underline-at-descent-line t)
 
+    (setq solarized-height-minus-1 1.0)
+    (setq solarized-height-plus-1 1.0)
+    (setq solarized-height-plus-2 1.0)
+    (setq solarized-height-plus-3 1.0)
+    (setq solarized-height-plus-4 1.0)
+
     (mapc
      (lambda (face)
        (set-face-attribute face nil :weight 'normal :underline nil))
@@ -97,7 +103,7 @@
   ;; (set-face-attribute 'default nil :font "-*-Operator Mono-normal-normal-normal-*-18-*-*-*-m-0-iso10646-1")
 
   ;; Setting English Font
-  (set-face-attribute 'default nil :font "Operator Mono 16")
+  (set-face-attribute 'default nil :font "Operator Mono 18")
 
   (set-face-attribute 'font-lock-keyword-face  nil :weight 'normal)
   (set-face-attribute 'font-lock-constant-face  nil :weight 'normal)
@@ -123,7 +129,7 @@
          :name "-*-Hiragino Sans GB-normal-normal-normal-*-*-*-*-*-p-0-iso10646-1"
          :weight 'normal
          :slant 'normal
-         :size 18.0)))
+         :size 20.0)))
      ))
 #+END_SRC
 * spaceline
@@ -393,12 +399,12 @@
     :bind
     (("C-c p" . projectile-command-map))
     (("C-c f" . projectile-find-file))
-    (("C-x o" . projectile-switch-project))
-    (("<C-i>" . projectile-find-file))
+    ;; (("C-x o" . projectile-switch-project))
+    ;; (("<C-i>" . projectile-find-file))
     :init
     (projectile-mode +1)
     :config
-    (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" "." ".." ".git"))
+    (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" "." ".." ".git" "node_modules" "dist"))
     (setq projectile-completion-system 'ivy)
     (use-package counsel-projectile
       :ensure t)
