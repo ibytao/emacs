@@ -5,6 +5,7 @@ backups
 config.el
 custom.el
 elpa
+elpy
 ido.last
 projectile-bookmarks.eld
 recentf
