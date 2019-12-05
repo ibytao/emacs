@@ -39,7 +39,7 @@
 
 ;; Clever newlines
 ;; (define-key input-decode-map "\C-i" [C-i])
-(global-set-key (kbd "<C-o>") 'open-line-and-indent)
+;; (global-set-key (kbd "<C-o>") 'open-line-and-indent)
 (global-set-key (kbd "<C-return>") 'open-line-below)
 (global-set-key (kbd "<C-S-return>") 'open-line-above)
 (global-set-key (kbd "<M-return>") 'new-line-dwim)
