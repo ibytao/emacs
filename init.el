@@ -195,9 +195,9 @@
 ;; (add-hook 'buffer-list-update-hook 'highlight-selected-window)
 (put 'upcase-region 'disabled nil)
 
-(setq
- split-width-threshold 100
- split-height-threshold nil)
+;; (setq
+;;  split-width-threshold 100
+;;  split-height-threshold nil)
 
 (defadvice occur-1 (after occur-maximize activate)
   (other-window 1))
