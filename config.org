@@ -765,7 +765,7 @@
     (add-hook 'web-mode-hook
               (lambda ()
                 (add-to-list (make-local-variable 'company-backends)
-                             '(company-tabnine company-tide company-css company-web-html company-files))
+                             '(company-tide company-tabnine company-css company-web-html company-files))
 
                 (set-face-attribute 'web-mode-constant-face nil :weight 'normal)
                 ;; (yas-activate-extra-mode 'web-mode)
@@ -899,7 +899,7 @@
     ;; install it separately via package-install
     ;; `M-x package-install [ret] company`
     (company-mode +1)
-    (add-to-list 'company-backends '(company-tabnine company-tide))
+    (add-to-list 'company-backends '(company-tide company-tabnine))
     )
 
   (add-hook 'js2-mode-hook #'setup-tide-mode)
