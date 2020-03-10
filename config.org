@@ -188,11 +188,6 @@
     ;;       '("program" "org-mode"))
     )
 #+END_SRC
-* ranger
-  #+begin_src emacs-lisp
-    (use-package ranger
-      :ensure t)
-  #+end_src
 * smex
 #+BEGIN_SRC emacs-lisp
   ;;
@@ -506,7 +501,7 @@
     ;; (set-default 'fill-column 80)
 
     ;; Don't break lines for me, please
-    (setq-default truncate-lines t)
+    ;; (setq-default truncate-lines t)
     )
 #+END_SRC
 * magit
@@ -1279,4 +1274,9 @@
         (pug-compile)))
     (add-hook 'after-save-hook 'pug-compile-saved-file)
     )
+#+END_SRC
+* yaml
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
+    :ensure t)
 #+END_SRC
