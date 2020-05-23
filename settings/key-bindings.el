@@ -39,7 +39,7 @@
 
 ;; Clever newlines
 ;; (define-key input-decode-map "\C-i" [C-i])
-;; (global-set-key (kbd "<C-o>") 'open-line-and-indent)
+(global-set-key (kbd "<C-o>") 'open-line-and-indent)
 (global-set-key (kbd "<C-return>") 'open-line-below)
 (global-set-key (kbd "<C-S-return>") 'open-line-above)
 (global-set-key (kbd "<M-return>") 'new-line-dwim)
@@ -58,7 +58,7 @@
 (add-hook 'org-mode-hook 'my-org-hook)
 
 ;;key-map
-(global-set-key (kbd "C-c b") 'create-scratch-buffer)
+(global-set-key (kbd "C-c n") 'create-scratch-buffer)
 (global-set-key (kbd "s-/") 'comment-line)
 (global-set-key (kbd "C-c /") 'comment-or-uncomment-region)
 ;; Duplicate region
@@ -69,7 +69,7 @@
 (global-set-key (kbd "C-x C-k") 'delete-current-buffer-file)
 
 ;; Perform general cleanup.
-(global-set-key (kbd "C-c n") 'cleanup-buffer)
+(global-set-key (kbd "C-c c") 'cleanup-buffer)
 
 ;; M-i for back-to-indentation
 (global-set-key (kbd "M-i") 'back-to-indentation)

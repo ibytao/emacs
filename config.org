@@ -310,6 +310,7 @@
     :ensure t
     :bind (("M-x" . counsel-M-x)
            ("\C-x \C-f" . counsel-find-file)
+           ("C-c b" . counsel-bookmark)
            ("M-y" . counsel-yank-pop))
     :init
     (setq counsel-find-file-ignore-regexp "\\.git\\/")
@@ -410,8 +411,8 @@
     :init
     (projectile-mode +1)
     :config
-    (define-key input-decode-map "\C-o" [C-o])
-    (global-set-key (kbd "<C-o>") 'projectile-find-file)
+    ;; (define-key input-decode-map "\C-o" [C-o])
+    ;; (global-set-key (kbd "<C-o>") 'projectile-find-file)
     (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" "." ".." ".git" "node_modules" "dist"))
     (setq projectile-completion-system 'ivy)
     (use-package counsel-projectile
