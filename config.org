@@ -310,6 +310,7 @@
     :ensure t
     :bind (("M-x" . counsel-M-x)
            ("\C-x \C-f" . counsel-find-file)
+           ("C-c b" . counsel-bookmark)
            ("M-y" . counsel-yank-pop))
     :init
     (setq counsel-find-file-ignore-regexp "\\.git\\/")
@@ -319,8 +320,21 @@
     :ensure t
     :config
     ;; (global-unset-key (kbd "s-p"))
-    (global-set-key (kbd "C-s") 'swiper)
-    (global-set-key (kbd "C-r") 'swiper)
+    ;; (global-set-key (kbd "C-s") 'swiper)
+    ;; (global-set-key (kbd "C-r") 'swiper)
+
+    (defun swiper-isearch-from-isearch ()
+      "Invoke `swiper-isearch' from isearch."
+      (interactive)
+      (let ((query (if isearch-regexp
+                       isearch-string
+                     (regexp-quote isearch-string))))
+        (isearch-exit)
+        (swiper-isearch query)))
+    (define-key isearch-mode-map (kbd "<C-return>") 'swiper-isearch-from-isearch)
+
+    (global-set-key (kbd "C-S-s") 'isearch-forward-symbol-at-point)
+
     )
 #+END_SRC
 * recentf
@@ -397,8 +411,8 @@
     :init
     (projectile-mode +1)
     :config
-    (define-key input-decode-map "\C-o" [C-o])
-    (global-set-key (kbd "<C-o>") 'projectile-find-file)
+    ;; (define-key input-decode-map "\C-o" [C-o])
+    ;; (global-set-key (kbd "<C-o>") 'projectile-find-file)
     (setq projectile-globally-ignored-files '( "TAGS" ".DS_Store" "." ".." ".git" "node_modules" "dist"))
     (setq projectile-completion-system 'ivy)
     (use-package counsel-projectile
