@@ -206,3 +206,6 @@
 
 (defadvice rgrep (after occur-maximize activate)
   (other-window 1))
+
+(add-to-list 'auto-mode-alist '("\\.wxss\\'" . css-mode))
+(add-to-list 'auto-mode-alist '("\\.wxml\\'" . web-mode))
